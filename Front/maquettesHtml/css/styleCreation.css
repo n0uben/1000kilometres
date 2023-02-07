@@ -1,5 +1,6 @@
 *{
     font-family: Calibri;
+
 }
 
 #navig{
@@ -22,4 +23,8 @@
 
 #logo{
     width: 5%;
+}
+
+body{
+    background-color: #dedede;
 }
