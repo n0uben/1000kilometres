@@ -33,3 +33,6 @@ build/
 .vscode/
 
 package-lock.json
+
+### FICHIERS DU PROJET
+application.properties

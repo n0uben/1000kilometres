@@ -1,10 +1,8 @@
 package iut.fr.projet1000km.models;
 
 import jakarta.persistence.*;
-import lombok.NoArgsConstructor;
 
 @Entity
-@NoArgsConstructor
 public class Utilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +15,8 @@ public class Utilisateur {
     private int nbPartiesJouees;
     @Column
     private int nbPartiesGagnees;
+
+    public Utilisateur() {}
 
     // GETTERS
     public long getIdUtilisateur() {
