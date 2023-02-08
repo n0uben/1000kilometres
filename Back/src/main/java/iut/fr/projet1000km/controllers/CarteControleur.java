@@ -8,14 +8,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/cartes")
+@RequestMapping("/carte")
 
 public class CarteControleur {
 
     private CarteService carteService;
-
-    public CarteControleur() {
-    }
 
     public CarteControleur(CarteService carteService) {
         this.carteService = carteService;
@@ -47,7 +44,7 @@ public class CarteControleur {
                 .map(carte1 -> {
                     Carte carteModifiee = carteService.modifier(carte);
                     return ResponseEntity.ok(carteModifiee);
-                } ).orElse(ResponseEntity.notFound().build());
+                }).orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping("/supprimer/{id}")
@@ -57,6 +54,6 @@ public class CarteControleur {
                 .map(carteBdd -> {
                     carteService.supprimer(carteBdd.getId());
                     return ResponseEntity.ok().build();
-                } ).orElse(ResponseEntity.notFound().build());
+                }).orElse(ResponseEntity.notFound().build());
     }
 }
