@@ -18,11 +18,20 @@ public class CarteControleur {
         this.carteService = carteService;
     }
 
+    /**
+     *
+     * @return Si existe, renvoie liste des cartes en BDD, sinon liste vide
+     */
     @GetMapping
     public List<Carte> getAll() {
         return carteService.getAll();
     }
 
+    /**
+     *
+     * @param id
+     * @return Si existe, renvoie une carte, sinon 404
+     */
     @GetMapping(value = "{id}")
     public ResponseEntity<Carte> getById(@PathVariable final Long id) {
 
@@ -37,16 +46,31 @@ public class CarteControleur {
         return carteService.creer(carte);
     }
 
-    @PostMapping("/modifier/{id}")
+    /**
+     *
+     * @param id
+     * @param carte
+     * @return Si existe, modifie carte existante et la renvoie, sinon 404
+     */
+    @PutMapping("/modifier/{id}")
     public ResponseEntity<Carte> modifier(@PathVariable final Long id, @RequestBody final Carte carte) {
 
         return carteService.getOne(id)
-                .map(carte1 -> {
-                    Carte carteModifiee = carteService.modifier(carte);
+                .map(c -> {
+                    c.setNom(carte.getNom());
+                    c.setEffet(carte.getEffet());
+                    c.setKm(carte.getKm());
+                    c.setNbDispo(carte.getNbDispo());
+                    Carte carteModifiee = carteService.modifier(c);
                     return ResponseEntity.ok(carteModifiee);
                 }).orElse(ResponseEntity.notFound().build());
     }
 
+    /**
+     *
+     * @param id
+     * @return si existe, supprime et renvoie 200 sinon 404
+     */
     @PostMapping("/supprimer/{id}")
     public ResponseEntity<?> supprimer(@PathVariable final Long id) {
 
