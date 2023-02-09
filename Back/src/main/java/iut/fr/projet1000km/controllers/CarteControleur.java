@@ -71,12 +71,12 @@ public class CarteControleur {
      * @param id
      * @return si existe, supprime et renvoie 200 sinon 404
      */
-    @PostMapping("/supprimer/{id}")
+    @DeleteMapping("/supprimer/{id}")
     public ResponseEntity<?> supprimer(@PathVariable final Long id) {
 
         return carteService.getOne(id)
                 .map(carteBdd -> {
-                    carteService.supprimer(carteBdd.getId());
+                    carteService.supprimer(carteBdd.getIdCarte());
                     return ResponseEntity.ok().build();
                 }).orElse(ResponseEntity.notFound().build());
     }

@@ -27,14 +27,14 @@ public class CarteService {
 
     public Carte creer(Carte carte) {
 
-        Carte carteACreer = new Carte(carte.getId(), carte.getNom(), carte.getKm(), carte.getEffet(), carte.getNbDispo());
+        Carte carteACreer = new Carte(carte.getIdCarte(), carte.getNom(), carte.getKm(), carte.getEffet(), carte.getNbDispo());
 
         return carteRepository.save(carteACreer);
     }
 
     public Carte modifier(Carte carte) {
 
-        Carte carteAModifier = new Carte(carte.getId(), carte.getNom(), carte.getKm(), carte.getEffet(), carte.getNbDispo());
+        Carte carteAModifier = new Carte(carte.getIdCarte(), carte.getNom(), carte.getKm(), carte.getEffet(), carte.getNbDispo());
 
         return carteRepository.saveAndFlush(carteAModifier);
     }

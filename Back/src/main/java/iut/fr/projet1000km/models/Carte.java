@@ -7,7 +7,7 @@ public class Carte {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long idCarte;
     @Column
     private String nom;
     @Column
@@ -19,20 +19,20 @@ public class Carte {
 
     public Carte() {}
 
-    public Carte(long id, String nom, int km, String effet, int nbDispo) {
-        this.id = id;
+    public Carte(long idCarte, String nom, int km, String effet, int nbDispo) {
+        this.idCarte = idCarte;
         this.nom = nom;
         this.km = km;
         this.effet = effet;
         this.nbDispo = nbDispo;
     }
 
-    public long getId() {
-        return id;
+    public long getIdCarte() {
+        return idCarte;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setIdCarte(long id) {
+        this.idCarte = id;
     }
 
     public String getNom() {
