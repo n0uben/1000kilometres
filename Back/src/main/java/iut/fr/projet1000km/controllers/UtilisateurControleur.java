@@ -2,6 +2,7 @@ package iut.fr.projet1000km.controllers;
 
 import iut.fr.projet1000km.models.Utilisateur;
 import iut.fr.projet1000km.services.UtilisateurService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,23 +17,41 @@ public class UtilisateurControleur {
         this.utilisateurService = utilisateurService;
     }
 
-    @PostMapping("/create")
-    public Utilisateur create(@RequestBody Utilisateur utilisateur) {
-        return utilisateurService.creer(utilisateur);
-    }
-
     @GetMapping
-    public List<Utilisateur> read() {
-        return utilisateurService.lire();
+    public List<Utilisateur> getAll() {
+        return utilisateurService.getAll();
     }
 
-    @PutMapping("/update/{id}")
-    public Utilisateur update(@PathVariable Long id, @RequestBody Utilisateur utilisateur) {
-        return utilisateurService.modifier(id, utilisateur);
+    @GetMapping(value = "{id}")
+    public ResponseEntity<Utilisateur> getById(@PathVariable final Long id) {
+        return utilisateurService.getOne(id)
+                .map(utilisateur -> ResponseEntity.ok(utilisateur))
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("delete/{id}")
-    public String delete(@PathVariable Long id) {
-        return utilisateurService.supprimer(id);
+    @PostMapping("/creer")
+    public Utilisateur create(@RequestBody Utilisateur utilisateur) {return utilisateurService.creer(utilisateur);
+    }
+
+    @PutMapping("/modifier/{id}")
+    public ResponseEntity<Utilisateur> modifier(@PathVariable final Long id, @RequestBody Utilisateur utilisateur) {
+        return utilisateurService.getOne(id)
+                .map(u -> {
+                    u.setPseudo(utilisateur.getPseudo());
+                    u.setMotDePasse(utilisateur.getMotDePasse());
+                    u.setNbPartiesJouees(utilisateur.getNbPartiesJouees());
+                    u.setNbPartiesGagnees(utilisateur.getNbPartiesGagnees());
+                    Utilisateur utilisateurModifie = utilisateurService.modifier(u);
+                    return  ResponseEntity.ok(utilisateurModifie);
+                }).orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("supprimer/{id}")
+    public ResponseEntity<?> supprimer(@PathVariable final Long id) {
+        return utilisateurService.getOne(id)
+                .map(utilisateurBdd -> {
+                    utilisateurService.supprimer(utilisateurBdd.getIdUtilisateur());
+                    return ResponseEntity.ok().build();
+                }).orElse(ResponseEntity.notFound().build());
     }
 }

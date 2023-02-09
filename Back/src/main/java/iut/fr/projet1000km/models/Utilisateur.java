@@ -18,6 +18,14 @@ public class Utilisateur {
 
     public Utilisateur() {}
 
+    public Utilisateur(long idUtilisateur, String pseudo, String motDePasse, int nbPartiesJouees, int nbPartiesGagnees) {
+        this.idUtilisateur = idUtilisateur;
+        this.pseudo = pseudo;
+        this.motDePasse = motDePasse;
+        this.nbPartiesJouees = nbPartiesJouees;
+        this.nbPartiesGagnees = nbPartiesGagnees;
+    }
+
     // GETTERS
     public long getIdUtilisateur() {
         return idUtilisateur;
