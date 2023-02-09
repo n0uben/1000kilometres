@@ -29,7 +29,7 @@ public class CarteService {
 
         Carte carteACreer = new Carte(carte.getIdCarte(), carte.getNom(), carte.getKm(), carte.getEffet(), carte.getNbDispo());
 
-        return carteRepository.save(carteACreer);
+        return carteRepository.saveAndFlush(carteACreer);
     }
 
     public Carte modifier(Carte carte) {
