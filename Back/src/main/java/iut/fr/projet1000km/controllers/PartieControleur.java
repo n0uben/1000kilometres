@@ -44,7 +44,7 @@ public class PartieControleur {
                     p.setCodePartie(partie.getCodePartie());
                     Partie partiemodifiee = partieService.modifier(p);
                     return ResponseEntity.ok(partiemodifiee);
-                }.orElse(ResponseEntity.notFound().build()));
+                }).orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/supprimer/{id}")
