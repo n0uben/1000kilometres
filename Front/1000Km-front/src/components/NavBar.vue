@@ -24,7 +24,7 @@ export default {
             <a class="nav-link fw-bold" href="">Rejoindre partie</a>
           </li>
           <li class="nav-item px-3">
-            <a class="nav-link fw-bold" href="">S'inscrire</a>
+            <router-link class="nav-link fw-bold" to="/connexion">Se Connecter</router-link>
           </li>
         </ul>
       </div>

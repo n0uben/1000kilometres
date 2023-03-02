@@ -29,6 +29,11 @@ export default {
         <input type="submit" id="valider" class="form-control" value="Se connecter">
       </div>
     </div>
+    <div class="row g-3 my-3">
+      <div class="offset-5 col-auto">
+        <a>Tu n'as pas de compte ? </a><router-link to="">Inscris toi !</router-link>
+      </div>
+    </div>
   </div>
 </template>
 

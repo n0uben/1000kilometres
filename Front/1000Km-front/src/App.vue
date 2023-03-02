@@ -12,7 +12,7 @@ import CreateGame from "@/components/CreateGame.vue";
 
   <body>
     <section id="create">
-      <CreateGame/>
+      <router-view/>
     </section>
   </body>
 </template>
