@@ -23,12 +23,12 @@ public class PartieService {
     }
 
     public Partie creer(Partie partie) {
-        Partie partieACreer = new Partie(partie.getIdPartie(), partie.getNombreJoueur(), partie.getDuréeTour(), partie.getCodePartie());
+        Partie partieACreer = new Partie(partie.getNombreJoueur(), partie.getDureeTour(), partie.getCodePartie());
         return partieRepository.saveAndFlush(partieACreer);
     }
 
     public Partie modifier(Partie partie) {
-        Partie partieAModifier = new Partie(partie.getIdPartie(), partie.getNombreJoueur(), partie.getDuréeTour(), partie.getCodePartie());
+        Partie partieAModifier = new Partie(partie.getIdPartie(), partie.getNombreJoueur(), partie.getDureeTour(), partie.getCodePartie());
         return partieRepository.saveAndFlush(partieAModifier);
     }
     public void supprimer(Long id){

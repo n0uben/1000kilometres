@@ -10,16 +10,22 @@ public class Partie {
     private int nombreJoueur;
 
     @Column
-    private int duréeTour;
+    private int dureeTour;
 
     @Column
     private String codePartie;
 
     public Partie() {}
-    public Partie(long idPartie, int nombreJoueur, int duréeTour, String codePartie) {
+
+    public Partie(int nombreJoueur, int dureeTour, String codePartie) {
+        this.nombreJoueur = nombreJoueur;
+        this.dureeTour = dureeTour;
+        this.codePartie = codePartie;
+    }
+    public Partie(long idPartie, int nombreJoueur, int dureeTour, String codePartie) {
         this.idPartie = idPartie;
         this.nombreJoueur = nombreJoueur;
-        this.duréeTour = duréeTour;
+        this.dureeTour = dureeTour;
         this.codePartie = codePartie;
     }
 
@@ -39,12 +45,12 @@ public class Partie {
         this.nombreJoueur = nombreJoueur;
     }
 
-    public int getDuréeTour() {
-        return duréeTour;
+    public int getDureeTour() {
+        return dureeTour;
     }
 
-    public void setDuréeTour(int duréeTour) {
-        this.duréeTour = duréeTour;
+    public void setDureeTour(int dureeTour) {
+        this.dureeTour = dureeTour;
     }
 
     public String getCodePartie() {
