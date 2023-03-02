@@ -1,4 +1,3 @@
-INSERT INTO `utilisateur` (`id_utilisateur`, `mot_de_passe`, `nb_parties_gagnees`, `nb_parties_jouees`, `pseudo`) VALUES (NULL, 'blabla', '0', '0', 'test');
 INSERT INTO `utilisateur` (`id_utilisateur`, `mot_de_passe`, `nb_parties_gagnees`, `nb_parties_jouees`, `pseudo`) VALUES
                                                                                                                       (1, 'blabla', 0, 0, 'test'),
                                                                                                                       (2, 'KatzBG', 7, 6, 'Moumi'),
