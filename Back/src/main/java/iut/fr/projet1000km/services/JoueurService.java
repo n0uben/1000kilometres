@@ -1,7 +1,6 @@
 package iut.fr.projet1000km.services;
 
 import iut.fr.projet1000km.models.Joueur;
-import iut.fr.projet1000km.models.Utilisateur;
 import iut.fr.projet1000km.repository.JoueurRepository;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +25,7 @@ public class JoueurService {
 
     public Joueur creer(Joueur joueur) {
 
-        Joueur joueurACreer = new Joueur(joueur.getIdJoueur(),joueur.getKmParcouru(),joueur.isPeutAvancer());
+        Joueur joueurACreer = new Joueur(joueur.getKmParcouru(),joueur.isPeutAvancer());
 
         return joueurRepository.save(joueurACreer);
     }

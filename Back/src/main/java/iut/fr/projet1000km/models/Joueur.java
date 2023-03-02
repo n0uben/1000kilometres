@@ -16,7 +16,12 @@ public class Joueur {
 
     public Joueur(){}
 
-    public Joueur(long id,int km,boolean pa){
+    public Joueur(int kmParcouru, boolean peutAvancer) {
+        this.kmParcouru = kmParcouru;
+        this.peutAvancer = peutAvancer;
+    }
+
+    public Joueur(long id, int km, boolean pa){
         this.idJoueur = id;
         this.kmParcouru = km;
         this.peutAvancer = pa;
