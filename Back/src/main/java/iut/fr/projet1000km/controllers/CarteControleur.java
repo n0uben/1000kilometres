@@ -30,7 +30,7 @@ public class CarteControleur {
     /**
      *
      * @param id
-     * @return Si existe, renvoie une carte, sinon 404
+     * @return Si existe, renvoie une carte, sinon erreur 404
      */
     @GetMapping(value = "{id}")
     public ResponseEntity<Carte> getById(@PathVariable final Long id) {
