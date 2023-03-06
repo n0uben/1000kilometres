@@ -1,6 +1,37 @@
 <script>
+import axios from "axios";
+import router from "@/router";
+
 export default {
-  name: "ConnexionForm"
+  name: "ConnexionForm",
+  data () {
+    return {
+      users: [],
+    }
+  },
+  mounted () {
+
+  },
+  methods: {
+    async getUsers(){
+      let result = await axios.get("http://localhost:8080/utilisateur");
+      console.warn(result);
+      if(result.status==200){
+        this.users = result.data;
+        this.users.forEach(function(item){//on parcours les users de la BDD
+          let pseudoSaisi = document.getElementById("pseudo").value;
+          if(pseudoSaisi ==item["pseudo"]){//si user trouvé
+            let mdpSaisi = document.getElementById("mdp").value;
+            if(mdpSaisi==item["motDePasse"]){//si mdp OK
+              console.log("connexion réussie")
+              router.push({path: '/'})//redirection accueil
+            }
+          }
+        });
+      }
+    },
+
+  }
 }
 </script>
 
@@ -26,7 +57,7 @@ export default {
     </div>
     <div class="row g-3 my-3">
       <div class="offset-5 col-auto">
-        <input type="submit" id="valider" class="form-control" value="Se connecter">
+        <input type="submit" id="valider" class="form-control" value="Se connecter" @click="getUsers">
       </div>
     </div>
     <div class="row g-3 my-3">

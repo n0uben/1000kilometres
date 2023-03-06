@@ -1,6 +1,7 @@
 import {createRouter, createWebHistory} from "vue-router";
 import ConnexionForm from "@/components/ConnexionForm.vue";
 import CreateGame from "@/components/CreateGame.vue"
+import GameBoard from "@/components/GameBoard.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -12,6 +13,10 @@ const router = createRouter({
         {
             path: '/connexion',
             component:ConnexionForm
+        },
+        {
+            path: '/game',
+            component: GameBoard
         }
 
     ]

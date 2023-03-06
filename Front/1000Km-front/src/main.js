@@ -5,6 +5,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
 
+
 const app = createApp(App);
 
 import router from '@/router'
