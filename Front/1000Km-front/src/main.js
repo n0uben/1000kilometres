@@ -5,4 +5,10 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
 
-createApp(App).mount('#app')
+
+const app = createApp(App);
+
+import router from '@/router'
+app.use(router)
+app.mount('#app');
+
