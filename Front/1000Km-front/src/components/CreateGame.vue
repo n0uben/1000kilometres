@@ -48,7 +48,7 @@ export default {
         <h2 class="text-center">En mode Anonyme</h2>
       </div>
       <div id="auth" class="col-6 py-3" @click="onClickAuth($event)">
-        <h2 class="text-center">Athentification</h2>
+        <h2 class="text-center">Authentification</h2>
       </div>
     </div>
     <div class="row align-items-center" id="perso">
