@@ -30,7 +30,7 @@ public class UtilisateurControleur {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping(value = "/nom/{nom}")
+    @GetMapping(value = "/nom/{pseudo}")
     public ResponseEntity<Utilisateur> getByPseudo(@PathVariable final String pseudo) {
         return this.utilisateurService.getByPseudo(pseudo)
                 .map(utilisateur -> ResponseEntity.ok(utilisateur))
