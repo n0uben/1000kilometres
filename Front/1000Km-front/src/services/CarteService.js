@@ -5,3 +5,5 @@ class CarteService {
         return http.get("/carte")
     }
 }
+
+export default new CarteService();
