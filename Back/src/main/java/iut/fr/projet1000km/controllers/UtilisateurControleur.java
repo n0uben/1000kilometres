@@ -30,13 +30,6 @@ public class UtilisateurControleur {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping(value = "/nom/{pseudo}")
-    public ResponseEntity<Utilisateur> getByPseudo(@PathVariable final String pseudo) {
-        return this.utilisateurService.getByPseudo(pseudo)
-                .map(utilisateur -> ResponseEntity.ok(utilisateur))
-                .orElse(ResponseEntity.notFound().build());
-    }
-
     @PostMapping("/creer")
     public Utilisateur create(@RequestBody Utilisateur utilisateur) {return utilisateurService.creer(utilisateur);
     }
