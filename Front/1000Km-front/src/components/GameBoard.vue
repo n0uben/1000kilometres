@@ -106,21 +106,12 @@ export default {
         <img id="cartepioche" src="">
       </div>
       <div class="col-6 offset-1" id="main">
-<<<<<<< HEAD
         <img class="carte" src="../assets/images/Cartes/100kmh.PNG"/>
         <img class="carte" style="margin-left: 2%" src="../assets/images/Cartes/50kmh.PNG"/>
         <img class="carte" style="margin-left: 2%" src="../assets/images/Cartes/citerne.PNG"/>
         <img class="carte" style="margin-left: 2%" src="../assets/images/Cartes/25kmh.PNG"/>
         <img class="carte" style="margin-left: 2%" src="../assets/images/Cartes/crevaison.PNG"/>
         <img class="carte" style="margin-left: 2%" src="../assets/images/Cartes/200kmh.PNG"/>
-=======
-        <img id="carte1" src="" draggable="true" >
-        <img id="carte2" src="" draggable="true" >
-        <img id="carte3" src="" draggable="true" >
-        <img id="carte4" src="" draggable="true" >
-        <img id="carte5" src="" draggable="true">
-        <img id="carte6" src="" draggable="true" >
->>>>>>> main
       </div>
       <div class="col-2 offset-1" id="defosse" @dragover="dragover($event)" @drop="dropDefosse($event)">
         <img id="cartedefosse" src="">

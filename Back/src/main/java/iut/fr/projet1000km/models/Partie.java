@@ -2,6 +2,8 @@ package iut.fr.projet1000km.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Partie {
     @Id
@@ -17,6 +19,9 @@ public class Partie {
     @Column
     private String codePartie;
 
+    @ManyToMany
+    private List<Utilisateur> joueurs;
+
     public Partie() {
     }
 
@@ -31,6 +36,14 @@ public class Partie {
         this.nombreJoueur = nombreJoueur;
         this.dureeTour = dureeTour;
         this.codePartie = codePartie;
+    }
+
+    public Partie(long idPartie, int nombreJoueur, int dureeTour, String codePartie, List<Utilisateur> joueurs) {
+        this.idPartie = idPartie;
+        this.nombreJoueur = nombreJoueur;
+        this.dureeTour = dureeTour;
+        this.codePartie = codePartie;
+        this.joueurs = joueurs;
     }
 
     public long getIdPartie() {
@@ -65,4 +78,11 @@ public class Partie {
         this.codePartie = codePartie;
     }
 
+    public List<Utilisateur> getJoueurs() {
+        return joueurs;
+    }
+
+    public void setJoueurs(List<Utilisateur> joueurs) {
+        this.joueurs = joueurs;
+    }
 }
