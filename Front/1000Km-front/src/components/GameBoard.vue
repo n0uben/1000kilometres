@@ -77,24 +77,24 @@ export default {
 <template>
   <div class="container" id="roads">
     <div class="row">
-      <img class="player" src="../assets/images/skyline_sprite.png"/>
+      <img class="player1" src="../assets/images/skyline_sprite.png"/>
       <div class="road">
       </div>
     </div>
     <div class="row ">
-      <img class="player" src="../assets/images/skyline_sprite.png"/>
-      <div class="road">
-
-      </div>
-    </div>
-    <div class="row ">
-      <img class="player" src="../assets/images/skyline_sprite.png"/>
+      <img class="player2" src="../assets/images/skyline_sprite.png"/>
       <div class="road">
 
       </div>
     </div>
     <div class="row ">
-      <img class="player" src="../assets/images/skyline_sprite.png"/>
+      <img class="player3" src="../assets/images/skyline_sprite.png"/>
+      <div class="road">
+
+      </div>
+    </div>
+    <div class="row ">
+      <img class="player4" src="../assets/images/skyline_sprite.png"/>
       <div class="road">
 
       </div>
@@ -106,12 +106,12 @@ export default {
         <img id="cartepioche" src="">
       </div>
       <div class="col-6 offset-1" id="main">
-        <img id="carte1" src="" draggable="true" >
-        <img id="carte2" src="" draggable="true" >
-        <img id="carte3" src="" draggable="true" >
-        <img id="carte4" src="" draggable="true" >
-        <img id="carte5" src="" draggable="true">
-        <img id="carte6" src="" draggable="true" >
+        <img class="carte" src="../assets/images/Cartes/100kmh.PNG"/>
+        <img class="carte" style="margin-left: 2%" src="../assets/images/Cartes/50kmh.PNG"/>
+        <img class="carte" style="margin-left: 2%" src="../assets/images/Cartes/citerne.PNG"/>
+        <img class="carte" style="margin-left: 2%" src="../assets/images/Cartes/25kmh.PNG"/>
+        <img class="carte" style="margin-left: 2%" src="../assets/images/Cartes/crevaison.PNG"/>
+        <img class="carte" style="margin-left: 2%" src="../assets/images/Cartes/200kmh.PNG"/>
       </div>
       <div class="col-2 offset-1" id="defosse" @dragover="dragover($event)" @drop="dropDefosse($event)">
         <img id="cartedefosse" src="">
@@ -124,9 +124,25 @@ export default {
 #roads{
   margin-top: 4%;
 }
-
-.player{
+.carte{
+  width: 15% ;
+  margin-top: 6%;
+}
+.player1{
   width: 7%;
+  margin-left: 4%;
+}
+.player2{
+  width: 7%;
+  margin-left: 94%;
+}
+.player3{
+  width: 7%;
+  margin-left: 50%;
+}
+.player4{
+  width: 7%;
+  margin-left: 10%;
 }
 
 .road{
@@ -151,6 +167,7 @@ export default {
 
 #main{
   background-color: grey;
+  height: 100%;
 }
 
 #main img{
