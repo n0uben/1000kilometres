@@ -1,5 +1,7 @@
 package iut.fr.projet1000km.models;
+
 import jakarta.persistence.*;
+
 @Entity
 public class Partie {
     @Id
@@ -10,17 +12,35 @@ public class Partie {
     private int nombreJoueur;
 
     @Column
-    private int duréeTour;
+    private int dureeTour;
 
     @Column
     private String codePartie;
 
-    public Partie() {}
-    public Partie(long idPartie, int nombreJoueur, int duréeTour, String codePartie) {
+    @OneToOne
+    private Pioche pioche;
+
+    @OneToOne
+    private Defausse defausse;
+
+    public Partie() {
+    }
+
+    public Partie(int nombreJoueur, int dureeTour, String codePartie, Pioche pioche, Defausse defausse) {
+        this.nombreJoueur = nombreJoueur;
+        this.dureeTour = dureeTour;
+        this.codePartie = codePartie;
+        this.pioche = pioche;
+        this.defausse = defausse;
+    }
+
+    public Partie(long idPartie, int nombreJoueur, int dureeTour, String codePartie, Pioche pioche, Defausse defausse) {
         this.idPartie = idPartie;
         this.nombreJoueur = nombreJoueur;
-        this.duréeTour = duréeTour;
+        this.dureeTour = dureeTour;
         this.codePartie = codePartie;
+        this.pioche = pioche;
+        this.defausse = defausse;
     }
 
     public long getIdPartie() {
@@ -39,12 +59,12 @@ public class Partie {
         this.nombreJoueur = nombreJoueur;
     }
 
-    public int getDuréeTour() {
-        return duréeTour;
+    public int getDureeTour() {
+        return dureeTour;
     }
 
-    public void setDuréeTour(int duréeTour) {
-        this.duréeTour = duréeTour;
+    public void setDureeTour(int dureeTour) {
+        this.dureeTour = dureeTour;
     }
 
     public String getCodePartie() {
@@ -53,5 +73,21 @@ public class Partie {
 
     public void setCodePartie(String codePartie) {
         this.codePartie = codePartie;
+    }
+
+    public Pioche getPioche() {
+        return pioche;
+    }
+
+    public void setPioche(Pioche pioche) {
+        this.pioche = pioche;
+    }
+
+    public Defausse getDefausse() {
+        return defausse;
+    }
+
+    public void setDefausse(Defausse defausse) {
+        this.defausse = defausse;
     }
 }

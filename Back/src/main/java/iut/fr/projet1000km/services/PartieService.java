@@ -1,5 +1,7 @@
 package iut.fr.projet1000km.services;
 
+import iut.fr.projet1000km.models.Defausse;
+import iut.fr.projet1000km.models.Pioche;
 import org.springframework.stereotype.Service;
 import iut.fr.projet1000km.models.Partie;
 import iut.fr.projet1000km.repository.PartieRepository;
@@ -23,12 +25,12 @@ public class PartieService {
     }
 
     public Partie creer(Partie partie) {
-        Partie partieACreer = new Partie(partie.getIdPartie(), partie.getNombreJoueur(), partie.getDuréeTour(), partie.getCodePartie());
+        Partie partieACreer = new Partie(partie.getNombreJoueur(), partie.getDureeTour(), partie.getCodePartie(), new Pioche(), new Defausse());
         return partieRepository.saveAndFlush(partieACreer);
     }
 
     public Partie modifier(Partie partie) {
-        Partie partieAModifier = new Partie(partie.getIdPartie(), partie.getNombreJoueur(), partie.getDuréeTour(), partie.getCodePartie());
+        Partie partieAModifier = new Partie(partie.getIdPartie(), partie.getNombreJoueur(), partie.getDureeTour(), partie.getCodePartie(), new Pioche(), new Defausse());
         return partieRepository.saveAndFlush(partieAModifier);
     }
     public void supprimer(Long id){

@@ -17,6 +17,9 @@ public class Carte {
     @Column
     private int nbDispo;
 
+    @ManyToOne
+    private TypeCarte typeCarte;
+
     public Carte() {}
 
     public Carte(long idCarte, String nom, int km, String effet, int nbDispo) {
