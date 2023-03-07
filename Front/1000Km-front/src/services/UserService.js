@@ -1,15 +1,27 @@
 class UserService {
 
-    login(pseudo, motDePasse) {
-        const auth = window.btoa(`${pseudo}:${motDePasse}`);
-        console.log(auth);
+    login(myPseudo, myMotDePasse) {
+        // const auth = window.btoa(`${pseudo}:${motDePasse}`);
 
-        const requestOptions = {
-            headers: {'Authorization' : 'Basic ' + auth}
-        }
+        // const requestOptions = {
+        //     headers: {'Authorization' : 'Basic ' + auth}
+        // }
 
-        return fetch('http://localhost:8080/utilisateur/nom' + pseudo, requestOptions)
-            .then(response => this.#handleResponse(response))
+        return fetch('http://localhost:8080/utilisateur/connexion', {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({pseudo: myPseudo, motDePasse: myMotDePasse})
+        })
+            // .then(response => this.#handleResponse(response))
+            .then(response => {
+                    if (response.status === 200) {
+                        return [response]
+                    }
+                }
+            )
             .then(user => {
                 if (user) {
                     user.authData = window.btoa(pseudo + ':' + motDePasse);

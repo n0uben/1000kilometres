@@ -67,6 +67,7 @@
 <script>
 import axios from "axios";
 import router from "@/router";
+import userService from "@/services/UserService";
 
 export default {
   name: "ConnexionForm",
@@ -83,7 +84,7 @@ export default {
   },
   methods: {
     handleSubmit(event) {
-      console.log('pseudo : ' + this.pseudo + ' mdp : ' + this.motDePasse)
+      userService.login(this.pseudo, this.motDePasse)
     }
   }
 }
