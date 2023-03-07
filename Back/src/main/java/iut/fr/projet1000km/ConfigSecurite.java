@@ -1,47 +1,47 @@
 package iut.fr.projet1000km;
 
-
+import iut.fr.projet1000km.models.Utilisateur;
+import iut.fr.projet1000km.services.UtilisateurService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-import javax.sql.DataSource;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
 public class ConfigSecurite {
+    private final UtilisateurService utilisateurService;
+
+    public ConfigSecurite(UtilisateurService utilisateurService) {
+        this.utilisateurService = utilisateurService;
+    }
 
     @Bean
     public InMemoryUserDetailsManager userDetailsManager() {
-        UserDetails user = User.withDefaultPasswordEncoder()
-                .username("Moumi")
-                .password("KatzBG")
-                .roles("USER")
-                .build();
+        Collection<UserDetails> users = new ArrayList<>();
+        List<Utilisateur> utilisateursDb = utilisateurService.getAll();
 
-        UserDetails user1 = User.withDefaultPasswordEncoder()
-                .username("tartempion")
-                .password("password")
-                .roles("USER")
-                .build();
+        for (Utilisateur utilisateur : utilisateursDb) {
+            users.add(User.withDefaultPasswordEncoder()
+                    .username(utilisateur.getPseudo())
+                    .password(utilisateur.getMotDePasse())
+                    .roles("USER")
+                    .build()
+            );
+        }
 
-        UserDetails user2 = User.withDefaultPasswordEncoder()
-                .username("albator")
-                .password("password")
-                .roles("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(user, user1, user2);
+        return new InMemoryUserDetailsManager(users);
     }
 
     @Bean
