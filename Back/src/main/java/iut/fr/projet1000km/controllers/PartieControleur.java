@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping("/partie")
 public class PartieControleur {
 
-    private PartieService partieService;
+    private final PartieService partieService;
 
     public PartieControleur(PartieService partieService) {
         this.partieService = partieService;
@@ -40,7 +40,7 @@ public class PartieControleur {
                 .map(p -> {
                     p.setIdPartie(partie.getIdPartie());
                     p.setNombreJoueur(partie.getNombreJoueur());
-                    p.setDuréeTour(partie.getDuréeTour());
+                    p.setDureeTour(partie.getDureeTour());
                     p.setCodePartie(partie.getCodePartie());
                     Partie partiemodifiee = partieService.modifier(p);
                     return ResponseEntity.ok(partiemodifiee);
