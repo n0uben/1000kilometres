@@ -14,30 +14,28 @@ public class Utilisateur {
     @Column
     private String motDePasse;
     @Column
-    private int nbPartiesJouees;
+    private Integer nbPartiesJouees = 0;
     @Column
-    private int nbPartiesGagnees;
+    private Integer nbPartiesGagnees = 0;
+    @Column
+    private Integer kmParcourus = 0;
+    @Column
+    private Boolean peutAvancer = false;
 
     @ManyToMany
     private List<Utilisateur> amis;
 
     public Utilisateur() {}
 
-    public Utilisateur(long idUtilisateur, String pseudo, String motDePasse, int nbPartiesJouees, int nbPartiesGagnees) {
-        this.idUtilisateur = idUtilisateur;
-        this.pseudo = pseudo;
-        this.motDePasse = motDePasse;
-        this.nbPartiesJouees = nbPartiesJouees;
-        this.nbPartiesGagnees = nbPartiesGagnees;
-    }
-
-    public Utilisateur(long idUtilisateur, String pseudo, String motDePasse, int nbPartiesJouees, int nbPartiesGagnees, List<Utilisateur> amis) {
+    public Utilisateur(long idUtilisateur, String pseudo, String motDePasse, int nbPartiesJouees, int nbPartiesGagnees, List<Utilisateur> amis, int kmParcourus, Boolean peutAvancer) {
         this.idUtilisateur = idUtilisateur;
         this.pseudo = pseudo;
         this.motDePasse = motDePasse;
         this.nbPartiesJouees = nbPartiesJouees;
         this.nbPartiesGagnees = nbPartiesGagnees;
         this.amis = amis;
+        this.kmParcourus = kmParcourus;
+        this.peutAvancer = peutAvancer;
     }
 
     // GETTERS
@@ -88,5 +86,22 @@ public class Utilisateur {
 
     public void setAmis(List<Utilisateur> amis) {
         this.amis = amis;
+    }
+
+
+    public int getKmParcourus() {
+        return kmParcourus;
+    }
+
+    public Boolean getPeutAvancer() {
+        return peutAvancer;
+    }
+
+    public void setKmParcourus(int kmParcourus) {
+        this.kmParcourus = kmParcourus;
+    }
+
+    public void setPeutAvancer(Boolean peutAvancer) {
+        this.peutAvancer = peutAvancer;
     }
 }
