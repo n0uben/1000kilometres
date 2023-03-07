@@ -16,12 +16,7 @@ class UserService {
             body: JSON.stringify({pseudo: myPseudo, motDePasse: myMotDePasse})
         })
             // .then(response => this.#handleResponse(response))
-            .then(response => {
-                    if (response.status === 200) {
-                        return [response]
-                    }
-                }
-            )
+            .then(response => response.json())
             .then(user => {
                 if (user) {
                     user.authData = window.btoa(pseudo + ':' + motDePasse);

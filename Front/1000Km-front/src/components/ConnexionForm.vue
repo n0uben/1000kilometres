@@ -28,44 +28,10 @@
       </div>
     </div>
 
-
-
-    <!--    ---------------------- -->
-    <!--    ---------------------- -->
-    <!--    ---------------------- -->
-
-<!--        <div class="row g-3">-->
-<!--          <div class="offset-5 col-auto">-->
-<!--            <label for="pseudo" class="col-form-label">Pseudo :</label>-->
-<!--            <input type="text" id="pseudo" class="form-control">-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="row g-3 ">-->
-<!--          <div class="offset-5 col-auto">-->
-<!--            <label for="mdp" class="col-form-label">Mot de passe :</label>-->
-<!--            <input type="password" id="mdp" class="form-control">-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="row g-3 my-3">-->
-<!--          <div class="offset-5 col-auto">-->
-<!--            <input type="submit" id="valider" class="form-control" value="Se connecter" @click="getUsers">-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="row g-3 my-3">-->
-<!--          <div class="offset-5 col-auto">-->
-<!--            Tu n'as pas de compte ? <router-link to="">Inscris toi !</router-link>-->
-<!--          </div>-->
-<!--        </div>-->
-
-    <!--    ---------------------- -->
-    <!--    ---------------------- -->
-    <!--    ---------------------- -->
-
   </div>
 </template>
 
 <script>
-import axios from "axios";
 import router from "@/router";
 import userService from "@/services/UserService";
 
@@ -84,6 +50,7 @@ export default {
   },
   methods: {
     handleSubmit(event) {
+      console.log(this.pseudo + ' / ' + this.motDePasse)
       userService.login(this.pseudo, this.motDePasse)
     }
   }

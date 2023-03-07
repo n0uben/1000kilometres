@@ -1,6 +1,7 @@
 <script>
 import CreateGameAnonyme from "@/components/CreateGameAnonyme.vue";
 import CreateGameAuth from "@/components/CreateGameAuth.vue";
+import carteService from "@/services/CarteService";
 
 export default {
   name: "CreateGame",
@@ -36,6 +37,9 @@ export default {
         }
         this.current=event.currentTarget.id;//id le la div dernierement cliquée
       }
+    },
+    testApi(event) {
+      carteService.getAll().then(response => console.log(response.data))
     }
   }
 }
@@ -58,6 +62,8 @@ export default {
     <div class="row align-items-center" id="start" v-if="!isAuth">
       <div class="col-12 text-center">
         <button id="demarrer">Démarrer</button>
+
+        <button id="test" @click="testApi">TEST</button>
       </div>
     </div>
 
