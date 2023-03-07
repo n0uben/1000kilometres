@@ -3,6 +3,7 @@ package iut.fr.projet1000km.models;
 import jakarta.persistence.*;
 
 @Entity
+@Embeddable
 public class Carte {
 
     @Id

@@ -1,5 +1,7 @@
+import router from "@/router";
+import routerapp from "@/router/index"
 class UserService {
-
+    isConnected= false;
     login(myPseudo, myMotDePasse) {
         // const auth = window.btoa(`${pseudo}:${motDePasse}`);
 
@@ -21,12 +23,39 @@ class UserService {
                 if (user) {
                     user.authData = window.btoa(pseudo + ':' + motDePasse);
                     localStorage.setItem('user', JSON.stringify(user));
+                    this.isConnected=true;
+
                 }
             })
     }
 
+    inscription(pseudo,mdp){
+        return fetch('http://localhost:8080/utilisateur/creer', {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({pseudo: pseudo, motDePasse: mdp,nbPartiesJouees: 0,nbPartiesGagnees: 0})
+        })
+            // .then(response => this.#handleResponse(response))
+            .then(response => response.json())
+            .then(user => {
+                if (user) {
+                    user.authData = window.btoa(pseudo + ':' + motDePasse);
+                    localStorage.setItem('user', JSON.stringify(user));
+                    console.log("itsok");
+                    this.isConnected=true;
+                    routerapp.push({path:'/'});//redirection accueil
+                }
+            });
+
+    }
+
     logout() {
         localStorage.removeItem('user');
+        this.isConnected=false;
+        routerapp.push({path:'/'});//redirection accueil
     }
 
     currentuser() {

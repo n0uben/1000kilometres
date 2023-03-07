@@ -1,9 +1,8 @@
 package iut.fr.projet1000km.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Pioche {
@@ -12,11 +11,15 @@ public class Pioche {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPioche;
 
+    @ManyToMany
+    private List<Carte> cartes;
+
     public Pioche() {
     }
 
     public Pioche(Long idPioche) {
         this.idPioche = idPioche;
+
     }
 
     public Long getIdPioche() {

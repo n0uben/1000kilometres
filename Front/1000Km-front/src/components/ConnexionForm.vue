@@ -51,7 +51,7 @@ export default {
   methods: {
     handleSubmit(event) {
       console.log(this.pseudo + ' / ' + this.motDePasse)
-      userService.login(this.pseudo, this.motDePasse)
+      userService.login(this.pseudo, this.motDePasse).then(user => location.assign("/"))
     }
   }
 }

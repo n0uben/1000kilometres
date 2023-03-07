@@ -1,6 +1,17 @@
 <script>
+import userService from "@/services/UserService";
+import router from "@/router";
 export default {
-  name: "NavBar"
+  name: "NavBar",
+  data() {
+    return {
+
+    }
+  },
+  props: {
+    username: String
+  },
+
 }
 </script>
 
@@ -24,7 +35,10 @@ export default {
             <a class="nav-link fw-bold" href="">Rejoindre partie</a>
           </li>
           <li class="nav-item px-3">
-            <router-link class="nav-link fw-bold" to="/connexion">Se Connecter</router-link>
+            <router-link class="nav-link fw-bold" to="/connexion" v-if="!username">Se Connecter</router-link>
+          </li>
+          <li class="nav-item px-3">
+            <router-link class="nav-link fw-bold" to="/" v-if="username">Se déconnecter</router-link>
           </li>
         </ul>
       </div>
