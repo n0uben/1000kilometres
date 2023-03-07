@@ -1,9 +1,6 @@
 package iut.fr.projet1000km.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Defausse {
@@ -12,11 +9,19 @@ public class Defausse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idDefausse;
 
+    @ManyToOne
+    private Partie partie;
+
     public Defausse() {
     }
 
     public Defausse(Long idDefausse) {
         this.idDefausse = idDefausse;
+    }
+
+    public Defausse(Long idDefausse, Partie partie) {
+        this.idDefausse = idDefausse;
+        this.partie = partie;
     }
 
     public Long getIdDefausse() {
