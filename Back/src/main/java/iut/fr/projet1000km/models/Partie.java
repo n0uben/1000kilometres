@@ -17,12 +17,6 @@ public class Partie {
     @Column
     private String codePartie;
 
-    @OneToOne
-    private Pioche pioche;
-
-    @OneToOne
-    private Defausse defausse;
-
     public Partie() {
     }
 
@@ -30,8 +24,6 @@ public class Partie {
         this.nombreJoueur = nombreJoueur;
         this.dureeTour = dureeTour;
         this.codePartie = codePartie;
-        this.pioche = pioche;
-        this.defausse = defausse;
     }
 
     public Partie(long idPartie, int nombreJoueur, int dureeTour, String codePartie, Pioche pioche, Defausse defausse) {
@@ -39,8 +31,6 @@ public class Partie {
         this.nombreJoueur = nombreJoueur;
         this.dureeTour = dureeTour;
         this.codePartie = codePartie;
-        this.pioche = pioche;
-        this.defausse = defausse;
     }
 
     public long getIdPartie() {
@@ -75,19 +65,4 @@ public class Partie {
         this.codePartie = codePartie;
     }
 
-    public Pioche getPioche() {
-        return pioche;
-    }
-
-    public void setPioche(Pioche pioche) {
-        this.pioche = pioche;
-    }
-
-    public Defausse getDefausse() {
-        return defausse;
-    }
-
-    public void setDefausse(Defausse defausse) {
-        this.defausse = defausse;
-    }
 }

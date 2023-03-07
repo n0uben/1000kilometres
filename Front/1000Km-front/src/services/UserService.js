@@ -25,6 +25,10 @@ class UserService {
             })
     }
 
+    inscription(user, pass) {
+
+    }
+
     logout() {
         localStorage.removeItem('user');
     }
