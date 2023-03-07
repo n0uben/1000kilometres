@@ -1,6 +1,4 @@
 <script>
-import userService from "@/services/UserService";
-import router from "@/router";
 export default {
   name: "NavBar",
   data() {

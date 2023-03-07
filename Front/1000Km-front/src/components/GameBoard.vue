@@ -1,6 +1,4 @@
 <script>
-import axios from "axios";
-import router from "@/router";
 
 export default {
   name: "GameBoard",
@@ -23,23 +21,7 @@ export default {
     this.displaycard();
   },
   methods: {
-    async get() {
-      let result = await axios.get("http://localhost:8080/utilisateur");
-      console.warn(result);
-      if (result.status == 200) {
-        this.users = result.data;
-        this.users.forEach(function (item) {//on parcours les users de la BDD
-          let pseudoSaisi = document.getElementById("pseudo").value;
-          if (pseudoSaisi == item["pseudo"]) {//si user trouvé
-            let mdpSaisi = document.getElementById("mdp").value;
-            if (mdpSaisi == item["motDePasse"]) {//si mdp OK
-              console.log("connexion réussie")
-              router.push({path: '/'})//redirection accueil
-            }
-          }
-        });
-      }
-    },
+
     displaycard(){
       const pathimgs = "src/assets/images/Cartes/"
       for(let i = 0;i<this.main.length;i++){
@@ -50,13 +32,13 @@ export default {
       document.getElementById("cartedefosse").src=pathimgs+this.defosse[this.defosse.length-1]["img"];
     },
 
-    dragstart(e){
+    dragstart(e) {
       console.log("drag "+e.target.src);
       e.dataTransfer.effectAllowed="move";
       e.dataTransfer.setData("text",e.target.getAttribute("id"));
     },
 
-    dropDefosse(e){
+    dropDefosse(e) {
       const pathimgs = "src/assets/images/Cartes/"
       console.log("dropped "+e.target.src);
       let cartedefosse = document.getElementById("cartedefosse");
@@ -64,10 +46,9 @@ export default {
       var splitted = e.target.src.split('/');
       console.log(pathimgs+splitted[splitted.length-1]);
       cartedefosse.src=pathimgs+splitted[splitted.length-1];
-
     },
 
-    dragover(e){
+    dragover(e) {
       console.log("dragover");
       e.preventDefault();
     }
