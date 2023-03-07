@@ -1,11 +1,13 @@
 package iut.fr.projet1000km.controllers;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import iut.fr.projet1000km.models.Utilisateur;
 import iut.fr.projet1000km.services.UtilisateurService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/utilisateur")
@@ -54,5 +56,12 @@ public class UtilisateurControleur {
                     utilisateurService.supprimer(utilisateurBdd.getIdUtilisateur());
                     return ResponseEntity.ok().build();
                 }).orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("connexion")
+    public ResponseEntity<Utilisateur> connexion(@RequestBody Utilisateur utilisateurLight) {
+        return utilisateurService.connexion(utilisateurLight.getPseudo(), utilisateurLight.getMotDePasse())
+                .map(utilisateur -> ResponseEntity.ok(utilisateur))
+                .orElse(ResponseEntity.notFound().build());
     }
 }
