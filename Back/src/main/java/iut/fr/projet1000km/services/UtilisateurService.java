@@ -20,10 +20,6 @@ public class UtilisateurService {
         return utilisateurRepository.findById(id);
     }
 
-    public Optional<Utilisateur> getByPseudo(String pseudo) {
-        return this.utilisateurRepository.getUtilisateurByPseudo(pseudo);
-    }
-
     public List<Utilisateur> getAll() {
         return utilisateurRepository.findAll();
     }
