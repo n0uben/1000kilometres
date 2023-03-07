@@ -19,7 +19,7 @@ class UserService {
             .then(response => response.json())
             .then(user => {
                 if (user) {
-                    user.authData = window.btoa(pseudo + ':' + motDePasse);
+                    user.authData = window.btoa(myPseudo + ':' + myMotDePasse);
                     localStorage.setItem('user', JSON.stringify(user));
                 }
             })

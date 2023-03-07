@@ -33,7 +33,7 @@ public class ConfigSecurite {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((auth) -> {
                     auth.anyRequest().authenticated();
-                })
+                }).cors(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults());
 
         return http.build();
@@ -43,7 +43,6 @@ public class ConfigSecurite {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web -> web.ignoring()
                 .requestMatchers("/utilisateur/connexion")
-                .requestMatchers("/**")
         );
     }
 
