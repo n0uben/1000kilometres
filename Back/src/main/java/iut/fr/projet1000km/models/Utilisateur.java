@@ -2,6 +2,8 @@ package iut.fr.projet1000km.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Utilisateur {
     @Id
@@ -16,6 +18,9 @@ public class Utilisateur {
     @Column
     private int nbPartiesGagnees;
 
+    @ManyToMany
+    private List<Utilisateur> amis;
+
     public Utilisateur() {}
 
     public Utilisateur(long idUtilisateur, String pseudo, String motDePasse, int nbPartiesJouees, int nbPartiesGagnees) {
@@ -24,6 +29,15 @@ public class Utilisateur {
         this.motDePasse = motDePasse;
         this.nbPartiesJouees = nbPartiesJouees;
         this.nbPartiesGagnees = nbPartiesGagnees;
+    }
+
+    public Utilisateur(long idUtilisateur, String pseudo, String motDePasse, int nbPartiesJouees, int nbPartiesGagnees, List<Utilisateur> amis) {
+        this.idUtilisateur = idUtilisateur;
+        this.pseudo = pseudo;
+        this.motDePasse = motDePasse;
+        this.nbPartiesJouees = nbPartiesJouees;
+        this.nbPartiesGagnees = nbPartiesGagnees;
+        this.amis = amis;
     }
 
     // GETTERS
@@ -62,5 +76,17 @@ public class Utilisateur {
 
     public void setNbPartiesGagnees(int nbPartiesGagnees) {
         this.nbPartiesGagnees = nbPartiesGagnees;
+    }
+
+    public void setIdUtilisateur(long idUtilisateur) {
+        this.idUtilisateur = idUtilisateur;
+    }
+
+    public List<Utilisateur> getAmis() {
+        return amis;
+    }
+
+    public void setAmis(List<Utilisateur> amis) {
+        this.amis = amis;
     }
 }
