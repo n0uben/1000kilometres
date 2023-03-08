@@ -12,7 +12,7 @@ export default {
   methods: {
     handleSubmit(event) {
       console.log(this.pseudo + ' / ' + this.motDePasse)
-      userService.inscription(this.pseudo, this.motDePasse)
+      userService.inscription(this.pseudo, this.motDePasse).then(user => location.assign("/"))
     },
 
     onChangeConfirmer(e){

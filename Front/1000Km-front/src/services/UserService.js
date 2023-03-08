@@ -46,7 +46,7 @@ class UserService {
                     localStorage.setItem('user', JSON.stringify(user));
                     console.log("itsok");
                     this.isConnected=true;
-                    routerapp.push({path:'/'});//redirection accueil
+
                 }
             });
 

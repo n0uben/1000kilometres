@@ -7,7 +7,7 @@ import router from '@/router'
 import authHeader from "@/services/AuthHeader";
 
 
-import http from 'Axios'
+import http from 'axios'
 
 export default http.create({
     baseURL: "http://localhost:8080/",
