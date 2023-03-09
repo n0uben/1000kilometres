@@ -2,6 +2,8 @@ package iut.fr.projet1000km.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Partie {
     @Id
@@ -17,11 +19,8 @@ public class Partie {
     @Column
     private String codePartie;
 
-    @OneToOne
-    private Pioche pioche;
-
-    @OneToOne
-    private Defausse defausse;
+    @ManyToMany
+    private List<Utilisateur> joueurs;
 
     public Partie() {
     }
@@ -30,8 +29,6 @@ public class Partie {
         this.nombreJoueur = nombreJoueur;
         this.dureeTour = dureeTour;
         this.codePartie = codePartie;
-        this.pioche = pioche;
-        this.defausse = defausse;
     }
 
     public Partie(long idPartie, int nombreJoueur, int dureeTour, String codePartie, Pioche pioche, Defausse defausse) {
@@ -39,8 +36,14 @@ public class Partie {
         this.nombreJoueur = nombreJoueur;
         this.dureeTour = dureeTour;
         this.codePartie = codePartie;
-        this.pioche = pioche;
-        this.defausse = defausse;
+    }
+
+    public Partie(long idPartie, int nombreJoueur, int dureeTour, String codePartie, List<Utilisateur> joueurs) {
+        this.idPartie = idPartie;
+        this.nombreJoueur = nombreJoueur;
+        this.dureeTour = dureeTour;
+        this.codePartie = codePartie;
+        this.joueurs = joueurs;
     }
 
     public long getIdPartie() {
@@ -75,19 +78,11 @@ public class Partie {
         this.codePartie = codePartie;
     }
 
-    public Pioche getPioche() {
-        return pioche;
+    public List<Utilisateur> getJoueurs() {
+        return joueurs;
     }
 
-    public void setPioche(Pioche pioche) {
-        this.pioche = pioche;
-    }
-
-    public Defausse getDefausse() {
-        return defausse;
-    }
-
-    public void setDefausse(Defausse defausse) {
-        this.defausse = defausse;
+    public void setJoueurs(List<Utilisateur> joueurs) {
+        this.joueurs = joueurs;
     }
 }

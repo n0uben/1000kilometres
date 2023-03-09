@@ -1,8 +1,7 @@
-INSERT INTO utilisateur (`mot_de_passe`, `nb_parties_gagnees`, `nb_parties_jouees`, `pseudo`) VALUES
-                                                                                                                      ('blabla', 0, 0, 'test'),
-                                                                                                                      ('KatzBG', 7, 6, 'Moumi'),
-                                                                                                                      ('superMDP', 0, 0, 'John Rambo'),
-                                                                                                                      ('DoggyBG', 5, 5, 'Midoune');
+INSERT INTO utilisateur (`mot_de_passe`, `nb_parties_gagnees`, `nb_parties_jouees`, `pseudo`) VALUES ('blabla', 0, 0, 'test');
+INSERT INTO utilisateur (`mot_de_passe`, `nb_parties_gagnees`, `nb_parties_jouees`, `pseudo`) VALUES ('KatzBG', 7, 6, 'Moumi');
+INSERT INTO utilisateur (`mot_de_passe`, `nb_parties_gagnees`, `nb_parties_jouees`, `pseudo`) VALUES ('superMDP', 0, 0, 'John Rambo');
+INSERT INTO utilisateur (`mot_de_passe`, `nb_parties_gagnees`, `nb_parties_jouees`, `pseudo`) VALUES ('DoggyBG', 5, 5, 'Midoune');
 
 INSERT INTO `type_carte` (`id_type_carte`, `nom_type_carte`) VALUES (1, 'botte');
 INSERT INTO `type_carte` (`id_type_carte`, `nom_type_carte`) VALUES (2, 'attaque');
@@ -32,3 +31,7 @@ INSERT INTO `carte` (`effet`, `km`, `nb_dispo`, `nom`, `type_carte_id_type_carte
 INSERT INTO `carte` (`effet`, `km`, `nb_dispo`, `nom`, `type_carte_id_type_carte`) VALUES ('km', 100, 12, '100 Km', 4);
 INSERT INTO `carte` (`effet`, `km`, `nb_dispo`, `nom`, `type_carte_id_type_carte`) VALUES ('km', 200, 4, '200 Km', 4);
 
+INSERT INTO partie (id_partie, code_partie, duree_tour, nombre_joueur) VALUES (1, 'code', 30, 4);
+INSERT INTO pioche (id_pioche, partie_id_partie) VALUES (1, 1);
+
+# INSERT INTO pioche_cartes (carte_id_carte, pioche_id_pioche) VALUES (1, 1);
