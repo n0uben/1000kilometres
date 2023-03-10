@@ -1,6 +1,5 @@
 <script setup>
 import NavBar from "@/components/NavBar.vue";
-import CreateGame from "@/components/CreateGame.vue";
 
 </script>
 <script>

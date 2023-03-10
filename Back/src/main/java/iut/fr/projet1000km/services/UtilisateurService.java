@@ -25,16 +25,12 @@ public class UtilisateurService {
     }
 
     public Utilisateur creer(Utilisateur utilisateur) {
-
-        Utilisateur utilisateurACreer = new Utilisateur(utilisateur.getIdUtilisateur(), utilisateur.getPseudo(), utilisateur.getMotDePasse(), utilisateur.getNbPartiesJouees(), utilisateur.getNbPartiesGagnees());
-
-        return utilisateurRepository.save(utilisateurACreer);
+        return utilisateurRepository.save(utilisateur);
     }
 
 
     public Utilisateur modifier(Utilisateur utilisateur) {
-        Utilisateur utilisateurAModifier = new Utilisateur(utilisateur.getIdUtilisateur(), utilisateur.getPseudo(), utilisateur.getMotDePasse(), utilisateur.getNbPartiesJouees(), utilisateur.getNbPartiesGagnees());
-        return utilisateurRepository.saveAndFlush(utilisateurAModifier);
+        return utilisateurRepository.saveAndFlush(utilisateur);
     }
 
     public void supprimer(Long id) {
