@@ -30,8 +30,3 @@ INSERT INTO `carte` (`effet`, `km`, `nb_dispo`, `nom`, `type_carte_id_type_carte
 INSERT INTO `carte` (`effet`, `km`, `nb_dispo`, `nom`, `type_carte_id_type_carte`) VALUES ('km', 75, 10, '75 Km', 4);
 INSERT INTO `carte` (`effet`, `km`, `nb_dispo`, `nom`, `type_carte_id_type_carte`) VALUES ('km', 100, 12, '100 Km', 4);
 INSERT INTO `carte` (`effet`, `km`, `nb_dispo`, `nom`, `type_carte_id_type_carte`) VALUES ('km', 200, 4, '200 Km', 4);
-
-INSERT INTO partie (id_partie, code_partie, duree_tour, nombre_joueur) VALUES (1, 'code', 30, 4);
-INSERT INTO pioche (id_pioche, partie_id_partie) VALUES (1, 1);
-
-# INSERT INTO pioche_cartes (carte_id_carte, pioche_id_pioche) VALUES (1, 1);

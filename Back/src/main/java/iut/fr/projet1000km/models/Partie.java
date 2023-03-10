@@ -2,71 +2,51 @@ package iut.fr.projet1000km.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class Partie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idPartie;
+    private Long idPartie;
 
     @Column
-    private int nombreJoueur;
+    private Integer nombreJoueur;
 
     @Column
-    private int dureeTour;
+    private Integer dureeTour;
 
     @Column
     private String codePartie;
 
-    @ManyToMany
-    private List<Utilisateur> joueurs;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
+    private List<Utilisateur> joueurs = new ArrayList<>();
 
     public Partie() {
     }
 
-    public Partie(int nombreJoueur, int dureeTour, String codePartie, Pioche pioche, Defausse defausse) {
-        this.nombreJoueur = nombreJoueur;
-        this.dureeTour = dureeTour;
-        this.codePartie = codePartie;
-    }
-
-    public Partie(long idPartie, int nombreJoueur, int dureeTour, String codePartie, Pioche pioche, Defausse defausse) {
-        this.idPartie = idPartie;
-        this.nombreJoueur = nombreJoueur;
-        this.dureeTour = dureeTour;
-        this.codePartie = codePartie;
-    }
-
-    public Partie(long idPartie, int nombreJoueur, int dureeTour, String codePartie, List<Utilisateur> joueurs) {
-        this.idPartie = idPartie;
-        this.nombreJoueur = nombreJoueur;
-        this.dureeTour = dureeTour;
-        this.codePartie = codePartie;
-        this.joueurs = joueurs;
-    }
-
-    public long getIdPartie() {
+    public Long getIdPartie() {
         return idPartie;
     }
 
-    public void setIdPartie(long idPartie) {
+    public void setIdPartie(Long idPartie) {
         this.idPartie = idPartie;
     }
 
-    public int getNombreJoueur() {
+    public Integer getNombreJoueur() {
         return nombreJoueur;
     }
 
-    public void setNombreJoueur(int nombreJoueur) {
+    public void setNombreJoueur(Integer nombreJoueur) {
         this.nombreJoueur = nombreJoueur;
     }
 
-    public int getDureeTour() {
+    public Integer getDureeTour() {
         return dureeTour;
     }
 
-    public void setDureeTour(int dureeTour) {
+    public void setDureeTour(Integer dureeTour) {
         this.dureeTour = dureeTour;
     }
 

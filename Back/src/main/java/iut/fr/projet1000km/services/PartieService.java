@@ -25,13 +25,11 @@ public class PartieService {
     }
 
     public Partie creer(Partie partie) {
-        Partie partieACreer = new Partie(partie.getNombreJoueur(), partie.getDureeTour(), partie.getCodePartie(), new Pioche(), new Defausse());
-        return partieRepository.saveAndFlush(partieACreer);
+        return partieRepository.saveAndFlush(partie);
     }
 
     public Partie modifier(Partie partie) {
-        Partie partieAModifier = new Partie(partie.getIdPartie(), partie.getNombreJoueur(), partie.getDureeTour(), partie.getCodePartie(), new Pioche(), new Defausse());
-        return partieRepository.saveAndFlush(partieAModifier);
+        return partieRepository.saveAndFlush(partie);
     }
     public void supprimer(Long id){
         partieRepository.deleteById(id);

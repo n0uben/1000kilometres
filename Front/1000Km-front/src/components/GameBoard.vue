@@ -1,4 +1,5 @@
 <script>
+import router from "@/router";
 
 export default {
   name: "GameBoard",
@@ -7,10 +8,16 @@ export default {
       pioche: [],
       main: [],
       defosse: [],
+      imgCard: "",//image de la carte
+      carteDragged: null,//carte prise dans la pioche
+      pathImgs: "src/assets/images/Cartes/",
+      droppedCards: [],//cartes de la main posées dans la défosse
     }
   },
   mounted () {
+    this.pioche.push({"id":12,"nom":"25 Km","effet":"km","nbdispo":4,"img":"25kmh.PNG"});
     this.pioche.push({"id":1,"nom":"Véhicule prioritaire","effet":"prioritaire","nbdispo":1,"img":"prio.PNG"});
+    this.pioche.push({"id":20,"nom":"200 Km","effet":"km","nbdispo":4,"img":"200kmh.PNG"});
     this.main.push({"id":2,"nom":"As du volant","effet":"as","nbdispo":1,"img":"as.PNG"});
     this.main.push({"id":20,"nom":"200 Km","effet":"km","nbdispo":4,"img":"200kmh.PNG"});
     this.main.push({"id":20,"nom":"200 Km","effet":"km","nbdispo":4,"img":"200kmh.PNG"});
@@ -21,34 +28,47 @@ export default {
     this.displaycard();
   },
   methods: {
-
     displaycard(){
-      const pathimgs = "src/assets/images/Cartes/"
       for(let i = 0;i<this.main.length;i++){
         console.log("src/assets/images/Cartes/"+this.main[i]["img"]);
-        document.getElementById("carte"+(i+1)).src=pathimgs+this.main[i]["img"];
+        document.getElementById("carte"+(i+1)).src=this.pathImgs+this.main[i]["img"];
       }
-      document.getElementById("cartepioche").src=pathimgs+this.pioche[this.pioche.length-1]["img"];
-      document.getElementById("cartedefosse").src=pathimgs+this.defosse[this.defosse.length-1]["img"];
+      document.getElementById("cartepioche").src=this.pathImgs+this.pioche[this.pioche.length-1]["img"];
+      document.getElementById("cartedefosse").src=this.pathImgs+this.defosse[this.defosse.length-1]["img"];
     },
 
-    dragstart(e) {
-      console.log("drag "+e.target.src);
-      e.dataTransfer.effectAllowed="move";
-      e.dataTransfer.setData("text",e.target.getAttribute("id"));
+    dragstart(e){//on recupére l'image de la carte prise dans la main
+      console.log("dragstart"+e.target.src);
+      this.carteDragged = e.target;
+      this.imgCard=this.splitSrc(this.carteDragged.src);
     },
 
-    dropDefosse(e) {
-      const pathimgs = "src/assets/images/Cartes/"
-      console.log("dropped "+e.target.src);
+    dropDefosse(e){//on change le src de l'image de la defosse et on lui assigne le src de la carte prise dans la main
       let cartedefosse = document.getElementById("cartedefosse");
       cartedefosse.src="";
-      var splitted = e.target.src.split('/');
-      console.log(pathimgs+splitted[splitted.length-1]);
-      cartedefosse.src=pathimgs+splitted[splitted.length-1];
+      cartedefosse.src=this.pathImgs+this.imgCard;
+      this.carteDragged.src="";
+      this.droppedCards.push(this.carteDragged);//
     },
 
-    dragover(e) {
+    splitSrc(src){//recupere nom de l'image dans le path
+      var splitted = src.split('/');
+      return splitted[splitted.length-1];
+    },
+
+    piocheCarte(e){
+      let cartepioche = document.getElementById("cartepioche");
+      console.log("pioche : "+this.pathImgs+this.splitSrc(e.target.src));
+      if(this.droppedCards.length>0){
+        this.droppedCards[this.droppedCards.length-1].src=this.pathImgs+this.splitSrc(e.target.src);
+        this.droppedCards.pop();
+        this.pioche.pop();
+        cartepioche.src=this.pathImgs+this.pioche[this.pioche.length-1]["img"];
+      }
+
+    },
+
+    dragover(e){
       console.log("dragover");
       e.preventDefault();
     }
@@ -58,24 +78,24 @@ export default {
 <template>
   <div class="container" id="roads">
     <div class="row">
-      <img class="player1" src="../assets/images/skyline_sprite.png"/>
+      <img class="player" src="../assets/images/skyline_sprite.png"/>
       <div class="road">
       </div>
     </div>
     <div class="row ">
-      <img class="player2" src="../assets/images/skyline_sprite.png"/>
-      <div class="road">
-
-      </div>
-    </div>
-    <div class="row ">
-      <img class="player3" src="../assets/images/skyline_sprite.png"/>
+      <img class="player" src="../assets/images/skyline_sprite.png"/>
       <div class="road">
 
       </div>
     </div>
     <div class="row ">
-      <img class="player4" src="../assets/images/skyline_sprite.png"/>
+      <img class="player" src="../assets/images/skyline_sprite.png"/>
+      <div class="road">
+
+      </div>
+    </div>
+    <div class="row ">
+      <img class="player" src="../assets/images/skyline_sprite.png"/>
       <div class="road">
 
       </div>
@@ -84,18 +104,18 @@ export default {
   <div class="container" id="cards">
     <div class="row" id="linecards">
       <div class="col-2" id="pioche">
-        <img id="cartepioche" src="">
+        <img id="cartepioche" src="" @click="piocheCarte($event)">
       </div>
       <div class="col-6 offset-1" id="main">
-        <img class="carte" src="../assets/images/Cartes/100kmh.PNG"/>
-        <img class="carte" style="margin-left: 2%" src="../assets/images/Cartes/50kmh.PNG"/>
-        <img class="carte" style="margin-left: 2%" src="../assets/images/Cartes/citerne.PNG"/>
-        <img class="carte" style="margin-left: 2%" src="../assets/images/Cartes/25kmh.PNG"/>
-        <img class="carte" style="margin-left: 2%" src="../assets/images/Cartes/crevaison.PNG"/>
-        <img class="carte" style="margin-left: 2%" src="../assets/images/Cartes/200kmh.PNG"/>
+        <img id="carte1" src="" draggable="true" @dragstart="dragstart($event)">
+        <img id="carte2" src="" draggable="true" @dragstart="dragstart($event)">
+        <img id="carte3" src="" draggable="true" @dragstart="dragstart($event)">
+        <img id="carte4" src="" draggable="true" @dragstart="dragstart($event)">
+        <img id="carte5" src="" draggable="true" @dragstart="dragstart($event)">
+        <img id="carte6" src="" draggable="true" @dragstart="dragstart($event)">
       </div>
       <div class="col-2 offset-1" id="defosse" @dragover="dragover($event)" @drop="dropDefosse($event)">
-        <img id="cartedefosse" src="">
+        <img id="cartedefosse" src="" style="width: 60%">
       </div>
     </div>
   </div>
@@ -105,25 +125,9 @@ export default {
 #roads{
   margin-top: 4%;
 }
-.carte{
-  width: 15% ;
-  margin-top: 6%;
-}
-.player1{
+
+.player{
   width: 7%;
-  margin-left: 4%;
-}
-.player2{
-  width: 7%;
-  margin-left: 94%;
-}
-.player3{
-  width: 7%;
-  margin-left: 50%;
-}
-.player4{
-  width: 7%;
-  margin-left: 10%;
 }
 
 .road{
@@ -148,7 +152,6 @@ export default {
 
 #main{
   background-color: grey;
-  height: 100%;
 }
 
 #main img{
