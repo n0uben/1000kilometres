@@ -82,24 +82,24 @@ export default {
       <div class="road">
       </div>
     </div>
-    <div class="row ">
-      <img class="player" src="../assets/images/skyline_sprite.png"/>
-      <div class="road">
+<!--    <div class="row ">-->
+<!--      <img class="player" src="../assets/images/skyline_sprite.png"/>-->
+<!--      <div class="road">-->
 
-      </div>
-    </div>
-    <div class="row ">
-      <img class="player" src="../assets/images/skyline_sprite.png"/>
-      <div class="road">
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="row ">-->
+<!--      <img class="player" src="../assets/images/skyline_sprite.png"/>-->
+<!--      <div class="road">-->
 
-      </div>
-    </div>
-    <div class="row ">
-      <img class="player" src="../assets/images/skyline_sprite.png"/>
-      <div class="road">
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="row ">-->
+<!--      <img class="player" src="../assets/images/skyline_sprite.png"/>-->
+<!--      <div class="road">-->
 
-      </div>
-    </div>
+<!--      </div>-->
+<!--    </div>-->
   </div>
   <div class="container" id="cards">
     <div class="row" id="linecards">

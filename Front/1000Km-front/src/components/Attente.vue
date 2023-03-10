@@ -17,6 +17,9 @@ export default {
       for(var i=1;i<=this.nbJoueurs;i++){
         document.getElementById("joueur"+i).style.backgroundColor="#cb5b5b";
       }
+    },
+    onClickLaunch(){
+      location.assign("/game");
     }
   }
 }
@@ -38,7 +41,7 @@ export default {
         <p id="joueur1" class="mt-4 py-2" style="background-color: #7e3d3d;width: 20%;margin-left: 40%;border-radius: 5px;">En attente...</p>
         <p id="joueur1" class="mt-4 py-2" style="background-color: #7e3d3d;width: 20%;margin-left: 40%;border-radius: 5px;">En attente...</p>
         <p id="joueur1" class="mt-4 py-2" style="background-color: #7e3d3d;width: 20%;margin-left: 40%;border-radius: 5px;">En attente...</p>
-        <button class="py-2 px-3 mx-3 mt-4">Inviter</button><button class="py-2 px-3 mx-3">Lancer</button>
+        <button class="py-2 px-3 mx-3 mt-4">Inviter</button><button class="py-2 px-3 mx-3" @click="onClickLaunch">Lancer</button>
       </div>
     </div>
 
