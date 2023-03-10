@@ -24,7 +24,7 @@ public class Utilisateur {
     @Column
     private Boolean peutAvancer;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Utilisateur> amis;
 
     public Utilisateur() {}
