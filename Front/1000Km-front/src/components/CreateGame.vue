@@ -13,6 +13,9 @@ export default {
       imgnames: ["205.jpg","skyline.jpg"]
     }
   },
+  props: {
+    username: String
+  },
   methods: {
     onClickAuth(event){
 
@@ -57,13 +60,11 @@ export default {
     </div>
     <div class="row align-items-center" id="perso">
       <CreateGameAnonyme v-if="!isAuth"/>
-      <CreateGameAuth v-if="isAuth"/>
+      <CreateGameAuth :username="username" v-if="isAuth"/>
     </div>
     <div class="row align-items-center" id="start" v-if="!isAuth">
       <div class="col-12 text-center">
         <button id="demarrer">Démarrer</button>
-
-        <button id="test" @click="testApi">TEST</button>
       </div>
     </div>
 

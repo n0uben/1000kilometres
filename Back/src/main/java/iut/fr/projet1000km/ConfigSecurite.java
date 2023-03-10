@@ -61,6 +61,7 @@ public class ConfigSecurite {
         return (web -> web.ignoring()
                 .requestMatchers("/utilisateur/connexion")
                 .requestMatchers("/utilisateur/creer")
+                .requestMatchers("/pioche")
         );
     }
 }

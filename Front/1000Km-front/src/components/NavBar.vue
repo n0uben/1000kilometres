@@ -38,7 +38,7 @@ export default {
             <router-link class="nav-link fw-bold" to="/connexion" v-if="!username">Se Connecter</router-link>
           </li>
           <li class="nav-item px-3">
-            <router-link class="nav-link fw-bold" to="/" v-if="username">Se déconnecter</router-link>
+            <router-link class="nav-link fw-bold" to="/logout" v-if="username">Se déconnecter</router-link>
           </li>
         </ul>
       </div>

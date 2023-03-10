@@ -55,7 +55,7 @@ class UserService {
     logout() {
         localStorage.removeItem('user');
         this.isConnected=false;
-        routerapp.push({path:'/'});//redirection accueil
+        location.assign("/");
     }
 
     currentuser() {
