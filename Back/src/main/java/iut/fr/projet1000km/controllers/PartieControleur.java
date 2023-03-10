@@ -1,7 +1,9 @@
 package iut.fr.projet1000km.controllers;
 
 import iut.fr.projet1000km.models.Partie;
+import iut.fr.projet1000km.models.Utilisateur;
 import iut.fr.projet1000km.services.PartieService;
+import iut.fr.projet1000km.services.UtilisateurService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,9 +14,11 @@ import java.util.List;
 public class PartieControleur {
 
     private final PartieService partieService;
+    private final UtilisateurService utilisateurService;
 
-    public PartieControleur(PartieService partieService) {
+    public PartieControleur(PartieService partieService, UtilisateurService utilisateurService) {
         this.partieService = partieService;
+        this.utilisateurService = utilisateurService;
     }
 
     @GetMapping
@@ -31,7 +35,19 @@ public class PartieControleur {
 
     @PostMapping("/creer")
     public Partie creer(@RequestBody final Partie partie) {
-        return partieService.creer(partie);
+
+        //on recup l'id du joueur créateur fourni dans la requete
+        Long idCreateur = partie.getJoueurs().get(0).getIdUtilisateur();
+
+        //on va chercher en bdd les infos completes
+        Utilisateur utilisateurBdd = this.utilisateurService.getOne(idCreateur).orElse(new Utilisateur());
+
+        //on supprimer et remplace l'utilisateur créateur dans la partie reçue par les infos en bdd
+        partie.getJoueurs().remove(0);
+        partie.getJoueurs().add(utilisateurBdd);
+
+        //on sauvegarde
+        return this.partieService.creer(partie);
     }
 
     @PutMapping("/modifier/{id}")
