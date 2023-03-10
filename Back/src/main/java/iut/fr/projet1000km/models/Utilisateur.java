@@ -18,18 +18,16 @@ public class Utilisateur {
     @Column
     private Integer nbPartiesGagnees;
 
+    @Column
+    private Integer kmParcourus;
+
+    @Column
+    private Boolean peutAvancer;
+
     @ManyToMany
     private List<Utilisateur> amis;
 
     public Utilisateur() {}
-
-    public Utilisateur(long idUtilisateur, String pseudo, String motDePasse, int nbPartiesJouees, int nbPartiesGagnees) {
-        this.idUtilisateur = idUtilisateur;
-        this.pseudo = pseudo;
-        this.motDePasse = motDePasse;
-        this.nbPartiesJouees = nbPartiesJouees;
-        this.nbPartiesGagnees = nbPartiesGagnees;
-    }
 
     public Long getIdUtilisateur() {
         return idUtilisateur;
@@ -69,6 +67,22 @@ public class Utilisateur {
 
     public void setNbPartiesGagnees(Integer nbPartiesGagnees) {
         this.nbPartiesGagnees = nbPartiesGagnees;
+    }
+
+    public Integer getKmParcourus() {
+        return kmParcourus;
+    }
+
+    public void setKmParcourus(Integer kmParcourus) {
+        this.kmParcourus = kmParcourus;
+    }
+
+    public Boolean getPeutAvancer() {
+        return peutAvancer;
+    }
+
+    public void setPeutAvancer(Boolean peutAvancer) {
+        this.peutAvancer = peutAvancer;
     }
 
     public List<Utilisateur> getAmis() {
