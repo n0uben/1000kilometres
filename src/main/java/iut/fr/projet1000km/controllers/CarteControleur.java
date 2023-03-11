@@ -37,7 +37,7 @@ public class CarteControleur {
 
         // map & orElse  == then & catch en javascript (getOne == promesse => traiter en tant que tel)
         return carteService.getOne(id)
-                .map(carte -> ResponseEntity.ok(carte))
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 

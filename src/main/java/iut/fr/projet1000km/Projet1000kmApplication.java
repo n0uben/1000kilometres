@@ -2,10 +2,8 @@ package iut.fr.projet1000km;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
-//@SpringBootApplication()
+@SpringBootApplication()
 public class Projet1000kmApplication {
 
 	public static void main(String[] args) {

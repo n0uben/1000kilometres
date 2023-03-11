@@ -9,7 +9,7 @@ INSERT INTO `type_carte` (`id_type_carte`, `nom_type_carte`) VALUES (3, 'parade'
 INSERT INTO `type_carte` (`id_type_carte`, `nom_type_carte`) VALUES (4, 'kilometres');
 
 INSERT INTO `carte` (`effet`, `km`, `nb_dispo`, `nom`, `type_carte_id_type_carte`) VALUES ('prioritaire', 0, 1, 'Véhicule prioritaire', 1);
-INSERT INTO `carte` (`effet`, `km`, `nb_dispo`, `nom`, `type_carte_id_type_carte`) VALUES ('citerne', 0, 1, 'Citerne d\'essence', 1);
+INSERT INTO `carte` (`effet`, `km`, `nb_dispo`, `nom`, `type_carte_id_type_carte`) VALUES ('citerne', 0, 1, 'Citerne essence', 1);
 INSERT INTO `carte` (`effet`, `km`, `nb_dispo`, `nom`, `type_carte_id_type_carte`) VALUES ('increvable', 0, 1, 'Increvable', 1);
 INSERT INTO `carte` (`effet`, `km`, `nb_dispo`, `nom`, `type_carte_id_type_carte`) VALUES ('as', 0, 1, 'As du volant', 1);
 

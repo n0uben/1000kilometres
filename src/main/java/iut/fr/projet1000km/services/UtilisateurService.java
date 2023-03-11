@@ -25,8 +25,7 @@ public class UtilisateurService {
     }
 
     public Utilisateur creer(Utilisateur utilisateur) {
-
-        return utilisateurRepository.save(utilisateur);
+        return utilisateurRepository.saveAndFlush(utilisateur);
     }
 
     public Utilisateur modifier(Utilisateur utilisateur) {
