@@ -25,17 +25,11 @@ public class PiocheService {
     }
 
     public Pioche creer(Pioche pioche) {
-
-        Pioche piocheACreer = new Pioche(pioche.getIdPioche());
-
-        return piocheRepository.saveAndFlush(piocheACreer);
+        return piocheRepository.saveAndFlush(pioche);
     }
 
     public Pioche modifier(Pioche pioche) {
-
-        Pioche piocheAModifier = new Pioche(pioche.getIdPioche());
-
-        return piocheRepository.saveAndFlush(piocheAModifier);
+        return piocheRepository.saveAndFlush(pioche);
     }
 
     public void supprimer(Long id) {

@@ -25,15 +25,11 @@ public class DefausseService {
     }
 
     public Defausse creer(Defausse defausse) {
-        Defausse defausseACreer = new Defausse(defausse.getIdDefausse());
-
-        return defausseRepository.saveAndFlush(defausseACreer);
+        return defausseRepository.saveAndFlush(defausse);
     }
 
     public Defausse modifier(Defausse defausse) {
-        Defausse defausseAModifier = new Defausse(defausse.getIdDefausse());
-
-        return defausseRepository.saveAndFlush(defausseAModifier);
+        return defausseRepository.saveAndFlush(defausse);
     }
 
     public void supprimer(Long id) {

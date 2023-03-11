@@ -38,7 +38,7 @@ public class MainJoueurControleur {
     }
 
     @DeleteMapping("/supprimer/{id}")
-    public ResponseEntity<?> supprimer(@PathVariable Long id) {
+    public ResponseEntity<Object> supprimer(@PathVariable Long id) {
         return mainJoueurService.getOne(id)
                 .map(m -> {
                     mainJoueurService.supprimer(m.getIdMain());

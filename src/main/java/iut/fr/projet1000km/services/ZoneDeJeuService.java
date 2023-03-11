@@ -25,17 +25,11 @@ public class ZoneDeJeuService {
     }
 
     public ZoneDeJeu creer(ZoneDeJeu zoneDeJeu) {
-
-        ZoneDeJeu zoneDeJeuACreer = new ZoneDeJeu(zoneDeJeu.getIdZoneDeJeu());
-
-        return zoneDeJeuRepository.saveAndFlush(zoneDeJeuACreer);
+        return zoneDeJeuRepository.saveAndFlush(zoneDeJeu);
     }
 
     public ZoneDeJeu modifier(ZoneDeJeu zoneDeJeu) {
-
-        ZoneDeJeu zoneDeJeuAModifier = new ZoneDeJeu(zoneDeJeu.getIdZoneDeJeu());
-
-        return zoneDeJeuRepository.saveAndFlush(zoneDeJeuAModifier);
+        return zoneDeJeuRepository.saveAndFlush(zoneDeJeu);
     }
 
     public void supprimer(Long id) {

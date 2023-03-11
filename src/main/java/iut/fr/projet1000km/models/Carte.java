@@ -21,16 +21,6 @@ public class Carte {
     @ManyToOne
     private TypeCarte typeCarte;
 
-    public Carte() {}
-
-    public Carte(long idCarte, String nom, int km, String effet, int nbDispo) {
-        this.idCarte = idCarte;
-        this.nom = nom;
-        this.km = km;
-        this.effet = effet;
-        this.nbDispo = nbDispo;
-    }
-
     public long getIdCarte() {
         return idCarte;
     }

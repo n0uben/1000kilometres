@@ -1,6 +1,5 @@
 package iut.fr.projet1000km.controllers;
 
-import iut.fr.projet1000km.models.Carte;
 import iut.fr.projet1000km.models.TypeCarte;
 import iut.fr.projet1000km.services.TypeCarteService;
 import org.springframework.http.ResponseEntity;
@@ -64,7 +63,7 @@ public class TypeCarteControleur {
      * @return si existe, supprime et renvoie 200 sinon 404
      */
     @DeleteMapping("/supprimer/{id}")
-    public ResponseEntity<?> supprimer(@PathVariable final Long id) {
+    public ResponseEntity<Object> supprimer(@PathVariable final Long id) {
 
         return typeCarteService.getOne(id)
                 .map(tcarteBdd -> {

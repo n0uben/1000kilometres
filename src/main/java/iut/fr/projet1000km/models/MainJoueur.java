@@ -19,22 +19,6 @@ public class MainJoueur {
     @ManyToMany
     private List<Carte> cartes;
 
-    public MainJoueur() {}
-
-    public MainJoueur(Long idMain) { this.idMain = idMain; }
-
-    public MainJoueur(Long idMain, Partie partie, Utilisateur utilisateur) {
-        this.idMain = idMain;
-        this.partie = partie;
-        this.utilisateur = utilisateur;
-    }
-    public MainJoueur(Long idMain, Partie partie, Utilisateur utilisateur, List<Carte> cartes) {
-        this.idMain = idMain;
-        this.partie = partie;
-        this.utilisateur = utilisateur;
-        this.cartes = cartes;
-    }
-
     public Long getIdMain() {
         return idMain;
     }

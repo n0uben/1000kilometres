@@ -18,22 +18,6 @@ public class ZoneDeJeu {
 
     @ManyToMany
     private List<Carte> cartes;
-    public ZoneDeJeu () {}
-
-    public ZoneDeJeu (Long idZoneDeJeu) { this.idZoneDeJeu = idZoneDeJeu; }
-
-    public ZoneDeJeu(Long idZoneDeJeu, Partie partie, Utilisateur utilisateur) {
-        this.idZoneDeJeu = idZoneDeJeu;
-        this.partie = partie;
-        this.utilisateur = utilisateur;
-    }
-
-    public ZoneDeJeu(Long idZoneDeJeu, Partie partie, Utilisateur utilisateur, List<Carte> cartes) {
-        this.idZoneDeJeu = idZoneDeJeu;
-        this.partie = partie;
-        this.utilisateur = utilisateur;
-        this.cartes = cartes;
-    }
 
     public Long getIdZoneDeJeu() {
         return idZoneDeJeu;

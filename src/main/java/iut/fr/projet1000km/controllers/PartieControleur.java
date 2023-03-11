@@ -64,7 +64,7 @@ public class PartieControleur {
     }
 
     @DeleteMapping("/supprimer/{id}")
-    public ResponseEntity<?> supprimer(@PathVariable final Long id) {
+    public ResponseEntity<Object> supprimer(@PathVariable final Long id) {
 
         return partieService.getOne(id)
                 .map(partieBdd -> {

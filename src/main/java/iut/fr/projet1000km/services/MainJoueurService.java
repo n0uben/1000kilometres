@@ -25,17 +25,11 @@ public class MainJoueurService {
     }
 
     public MainJoueur creer(MainJoueur mainJoueur) {
-
-        MainJoueur mainJoueurACreer = new MainJoueur(mainJoueur.getIdMain());
-
-        return mainJoueurRepository.saveAndFlush(mainJoueurACreer);
+        return mainJoueurRepository.saveAndFlush(mainJoueur);
     }
 
     public MainJoueur modifier(MainJoueur mainJoueur) {
-
-        MainJoueur mainJoueurAModifier = new MainJoueur(mainJoueur.getIdMain());
-
-        return mainJoueurRepository.saveAndFlush(mainJoueurAModifier);
+        return mainJoueurRepository.saveAndFlush(mainJoueur);
     }
 
     public void supprimer(Long id) {

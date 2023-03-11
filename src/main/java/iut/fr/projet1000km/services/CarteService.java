@@ -27,16 +27,11 @@ public class CarteService {
 
     public Carte creer(Carte carte) {
 
-        Carte carteACreer = new Carte(carte.getIdCarte(), carte.getNom(), carte.getKm(), carte.getEffet(), carte.getNbDispo());
-
-        return carteRepository.saveAndFlush(carteACreer);
+        return carteRepository.saveAndFlush(carte);
     }
 
     public Carte modifier(Carte carte) {
-
-        Carte carteAModifier = new Carte(carte.getIdCarte(), carte.getNom(), carte.getKm(), carte.getEffet(), carte.getNbDispo());
-
-        return carteRepository.saveAndFlush(carteAModifier);
+        return carteRepository.saveAndFlush(carte);
     }
 
     public void supprimer(Long id){

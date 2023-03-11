@@ -1,7 +1,5 @@
 package iut.fr.projet1000km.services;
 
-import iut.fr.projet1000km.models.Defausse;
-import iut.fr.projet1000km.models.Pioche;
 import org.springframework.stereotype.Service;
 import iut.fr.projet1000km.models.Partie;
 import iut.fr.projet1000km.repository.PartieRepository;

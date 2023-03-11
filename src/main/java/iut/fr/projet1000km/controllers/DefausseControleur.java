@@ -45,7 +45,7 @@ public class DefausseControleur {
     }
 
     @DeleteMapping("/supprimer/{id}")
-    public ResponseEntity<?> supprimer(@PathVariable Long id) {
+    public ResponseEntity<Object> supprimer(@PathVariable Long id) {
         return defausseService.getOne(id)
                 .map(d -> {
                     defausseService.supprimer(d.getIdDefausse());

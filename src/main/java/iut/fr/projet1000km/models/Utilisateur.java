@@ -25,9 +25,6 @@ public class Utilisateur {
     @ManyToMany
     private List<Utilisateur> amis;
 
-    public Utilisateur() {}
-
-
     public long getIdUtilisateur() {
         return idUtilisateur;
     }

@@ -17,24 +17,6 @@ public class Defausse {
     @ManyToMany
     private List<Carte> cartes;
 
-    public Defausse() {
-    }
-
-    public Defausse(Long idDefausse) {
-        this.idDefausse = idDefausse;
-    }
-
-    public Defausse(Long idDefausse, Partie partie) {
-        this.idDefausse = idDefausse;
-        this.partie = partie;
-    }
-
-    public Defausse(Long idDefausse, Partie partie, List<Carte> cartes) {
-        this.idDefausse = idDefausse;
-        this.partie = partie;
-        this.cartes = cartes;
-    }
-
     public Long getIdDefausse() {
         return idDefausse;
     }

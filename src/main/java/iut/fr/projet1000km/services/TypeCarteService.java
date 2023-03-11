@@ -1,6 +1,5 @@
 package iut.fr.projet1000km.services;
 
-import iut.fr.projet1000km.models.Carte;
 import iut.fr.projet1000km.models.TypeCarte;
 import iut.fr.projet1000km.repository.TypeCarteRepository;
 import org.springframework.stereotype.Service;
@@ -27,17 +26,11 @@ public class TypeCarteService {
 
 
     public TypeCarte creer(TypeCarte tcarte) {
-
-        TypeCarte tcarteACreer = new TypeCarte(tcarte.getIdTypeCarte(),tcarte.getNomTypeCarte());
-
-        return typeCarteRepository.save(tcarteACreer);
+        return typeCarteRepository.save(tcarte);
     }
 
     public TypeCarte modifier(TypeCarte tcarte) {
-
-        TypeCarte tcarteAModifier = new TypeCarte(tcarte.getIdTypeCarte(),tcarte.getNomTypeCarte());
-
-        return typeCarteRepository.saveAndFlush(tcarteAModifier);
+        return typeCarteRepository.saveAndFlush(tcarte);
     }
 
     public void supprimer(Long id){

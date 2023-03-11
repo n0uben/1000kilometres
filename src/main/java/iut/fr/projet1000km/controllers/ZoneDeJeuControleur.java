@@ -50,7 +50,7 @@ public class ZoneDeJeuControleur {
     }
 
     @DeleteMapping("/supprimer/{id}")
-    public ResponseEntity<?> supprimer(@PathVariable Long id) {
+    public ResponseEntity<Object> supprimer(@PathVariable Long id) {
         return zoneDeJeuService.getOne(id)
                 .map(zdj -> {
                     zoneDeJeuService.supprimer(zdj.getIdZoneDeJeu());

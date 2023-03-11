@@ -17,24 +17,6 @@ public class Pioche {
     @ManyToMany
     private List<Carte> cartes;
 
-    public Pioche() {
-    }
-
-    public Pioche(Long idPioche) {
-        this.idPioche = idPioche;
-    }
-
-    public Pioche(Long idPioche, Partie partie) {
-        this.idPioche = idPioche;
-        this.partie = partie;
-    }
-
-    public Pioche(Long idPioche, Partie partie, List<Carte> cartes) {
-        this.idPioche = idPioche;
-        this.partie = partie;
-        this.cartes = cartes;
-    }
-
     public Long getIdPioche() {
         return idPioche;
     }

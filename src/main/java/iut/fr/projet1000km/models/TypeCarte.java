@@ -11,13 +11,6 @@ public class TypeCarte {
     @Column
     private String nomTypeCarte;
 
-    public TypeCarte(){}
-
-    public TypeCarte(long id,String nom){
-        this.idTypeCarte = id;
-        this.nomTypeCarte = nom;
-    }
-
     public long getIdTypeCarte() {
         return idTypeCarte;
     }

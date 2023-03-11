@@ -23,9 +23,6 @@ public class Partie {
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
     private List<Utilisateur> joueurs = new ArrayList<>();
 
-    public Partie() {
-    }
-
     public Long getIdPartie() {
         return idPartie;
     }
