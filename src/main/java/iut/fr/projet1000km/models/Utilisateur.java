@@ -22,6 +22,7 @@ public class Utilisateur {
     @Column
     private Boolean peutAvancer = false;
 
+
     @ManyToMany
     private List<Utilisateur> amis;
 
@@ -54,7 +55,9 @@ public class Utilisateur {
     }
 
     public void setNbPartiesJouees(Integer nbPartiesJouees) {
-        this.nbPartiesJouees = nbPartiesJouees;
+        if (nbPartiesJouees >= 0 && nbPartiesJouees >= this.nbPartiesGagnees) {
+            this.nbPartiesJouees = nbPartiesJouees;
+        }
     }
 
     public Integer getNbPartiesGagnees() {
@@ -62,7 +65,9 @@ public class Utilisateur {
     }
 
     public void setNbPartiesGagnees(Integer nbPartiesGagnees) {
-        this.nbPartiesGagnees = nbPartiesGagnees;
+        if (nbPartiesGagnees >= 0 && nbPartiesGagnees <= nbPartiesJouees) {
+            this.nbPartiesGagnees = nbPartiesGagnees;
+        }
     }
 
     public Integer getKmParcourus() {
@@ -70,7 +75,9 @@ public class Utilisateur {
     }
 
     public void setKmParcourus(Integer kmParcourus) {
-        this.kmParcourus = kmParcourus;
+        if (kmParcourus >= Constants.MIN_KM_PARCOURUS && kmParcourus <= Constants.MAX_KM_PARCOURUS) {
+            this.kmParcourus = kmParcourus;
+        }
     }
 
     public Boolean getPeutAvancer() {

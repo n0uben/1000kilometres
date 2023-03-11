@@ -12,7 +12,7 @@ public class Partie {
     private Long idPartie;
 
     @Column
-    private Integer nombreJoueur;
+    private Integer nombreJoueurs;
 
     @Column
     private Integer dureeTour;
@@ -20,7 +20,7 @@ public class Partie {
     @Column
     private String codePartie;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Utilisateur> joueurs = new ArrayList<>();
 
     public Long getIdPartie() {
@@ -31,12 +31,18 @@ public class Partie {
         this.idPartie = idPartie;
     }
 
-    public Integer getNombreJoueur() {
-        return nombreJoueur;
+    public Integer getNombreJoueurs() {
+        return nombreJoueurs;
     }
 
-    public void setNombreJoueur(Integer nombreJoueur) {
-        this.nombreJoueur = nombreJoueur;
+    public void setNombreJoueurs(Integer nombreJoueurs) {
+        if (nombreJoueurs < Constants.MIN_NB_JOUEURS) {
+            this.nombreJoueurs = Constants.MIN_NB_JOUEURS;
+        } else if (nombreJoueurs > Constants.MAX_NB_JOUEURS) {
+            this.nombreJoueurs = Constants.MAX_NB_JOUEURS;
+        } else {
+            this.nombreJoueurs = nombreJoueurs;
+        }
     }
 
     public Integer getDureeTour() {
@@ -44,7 +50,14 @@ public class Partie {
     }
 
     public void setDureeTour(Integer dureeTour) {
-        this.dureeTour = dureeTour;
+
+        if (dureeTour < Constants.MIN_DUREE_TOUR) {
+            this.dureeTour = Constants.MIN_DUREE_TOUR;
+        } else if (dureeTour > Constants.MAX_DUREE_TOUR) {
+            this.dureeTour = Constants.MAX_DUREE_TOUR;
+        } else {
+            this.dureeTour = dureeTour;
+        }
     }
 
     public String getCodePartie() {
