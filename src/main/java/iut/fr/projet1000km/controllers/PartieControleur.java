@@ -55,7 +55,7 @@ public class PartieControleur {
         return partieService.getOne(id)
                 .map(p -> {
                     p.setIdPartie(partie.getIdPartie());
-                    p.setNombreJoueur(partie.getNombreJoueur());
+                    p.setNombreJoueurs(partie.getNombreJoueurs());
                     p.setDureeTour(partie.getDureeTour());
                     p.setCodePartie(partie.getCodePartie());
                     Partie partiemodifiee = partieService.modifier(p);
