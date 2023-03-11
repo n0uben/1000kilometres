@@ -29,7 +29,7 @@ public class PartieControleur {
     @GetMapping(value = "{id}")
     public ResponseEntity<Partie> getById(@PathVariable final Long id) {
         return partieService.getOne(id)
-                .map(partie -> ResponseEntity.ok(partie))
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 

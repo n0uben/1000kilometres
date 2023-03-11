@@ -17,7 +17,7 @@ public class MainJoueurControleur {
     @GetMapping(value = "{id}")
     public ResponseEntity<MainJoueur> getById(@PathVariable final Long id) {
         return mainJoueurService.getOne(id)
-                .map(mainJoueur -> ResponseEntity.ok(mainJoueur))
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 

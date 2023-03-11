@@ -29,7 +29,7 @@ public class ZoneDeJeuControleur {
     @GetMapping(value = "{id}")
     public ResponseEntity<ZoneDeJeu> getById(@PathVariable final Long id) {
         return zoneDeJeuService.getOne(id)
-                .map(zoneDeJeu -> ResponseEntity.ok(zoneDeJeu))
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 

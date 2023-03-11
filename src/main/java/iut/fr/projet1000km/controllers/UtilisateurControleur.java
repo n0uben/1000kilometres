@@ -26,7 +26,7 @@ public class UtilisateurControleur {
     @GetMapping(value = "{id}")
     public ResponseEntity<Utilisateur> getById(@PathVariable final Long id) {
         return utilisateurService.getOne(id)
-                .map(utilisateur -> ResponseEntity.ok(utilisateur))
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
@@ -59,7 +59,7 @@ public class UtilisateurControleur {
     @PostMapping("connexion")
     public ResponseEntity<Utilisateur> connexion(@RequestBody Utilisateur utilisateurLight) {
         return utilisateurService.connexion(utilisateurLight.getPseudo(), utilisateurLight.getMotDePasse())
-                .map(utilisateur -> ResponseEntity.ok(utilisateur))
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 }

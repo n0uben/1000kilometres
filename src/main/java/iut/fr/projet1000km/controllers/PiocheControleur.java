@@ -29,7 +29,7 @@ public class PiocheControleur {
     @GetMapping(value = "{id}")
     public ResponseEntity<Pioche> getById(@PathVariable final Long id) {
         return piocheService.getOne(id)
-                .map(pioche -> ResponseEntity.ok(pioche))
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 

@@ -25,7 +25,7 @@ public class DefausseControleur {
     @GetMapping(value = "{id}")
     public ResponseEntity<Defausse> getOne(@PathVariable Long id) {
         return defausseService.getOne(id)
-                .map(defausse -> ResponseEntity.ok(defausse))
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 

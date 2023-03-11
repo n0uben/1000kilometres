@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/typecarte")
 public class TypeCarteControleur {
-    private TypeCarteService typeCarteService;
+    private final TypeCarteService typeCarteService;
 
     public TypeCarteControleur(TypeCarteService typeCarteService) {
         this.typeCarteService = typeCarteService;
@@ -23,7 +23,7 @@ public class TypeCarteControleur {
 
     /**
      *
-     * @param id
+     * @param id id typecarte
      * @return Si existe, renvoie une carte, sinon 404
      */
     @GetMapping(value = "{id}")
@@ -31,7 +31,7 @@ public class TypeCarteControleur {
 
         // map & orElse  == then & catch en javascript (getOne == promesse => traiter en tant que tel)
         return typeCarteService.getOne(id)
-                .map(tcarte -> ResponseEntity.ok(tcarte))
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
@@ -42,8 +42,8 @@ public class TypeCarteControleur {
 
     /**
      *
-     * @param id
-     * @param tcarte
+     * @param id id typecarteservice
+     * @param tcarte objet type carte
      * @return Si existe, modifie carte existante et la renvoie, sinon 404
      */
     @PutMapping("/modifier/{id}")
@@ -59,7 +59,7 @@ public class TypeCarteControleur {
 
     /**
      *
-     * @param id
+     * @param id id typeCarte
      * @return si existe, supprime et renvoie 200 sinon 404
      */
     @DeleteMapping("/supprimer/{id}")
