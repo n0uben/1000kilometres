@@ -1,7 +1,7 @@
 package iut.fr.projet1000km.controllers;
 
 import iut.fr.projet1000km.models.Defausse;
-import iut.fr.projet1000km.services.DefausseService;
+import iut.fr.projet1000km.repository.DefausseRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,44 +11,45 @@ import java.util.List;
 @RequestMapping("/defausse")
 public class DefausseControleur {
 
-    private final DefausseService defausseService;
+    private final DefausseRepository defausseRepository;
 
-    public DefausseControleur(DefausseService defausseService) {
-        this.defausseService = defausseService;
+
+    public DefausseControleur(DefausseRepository defausseRepository) {
+        this.defausseRepository = defausseRepository;
     }
 
     @GetMapping
     public List<Defausse> getAll() {
-        return defausseService.getAll();
+        return defausseRepository.findAll();
     }
 
     @GetMapping(value = "{id}")
     public ResponseEntity<Defausse> getOne(@PathVariable Long id) {
-        return defausseService.getOne(id)
+        return defausseRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping("/creer")
     public Defausse creer(@RequestBody Defausse defausse) {
-        return defausseService.creer(defausse);
+        return defausseRepository.saveAndFlush(defausse);
     }
 
     @PutMapping("/modifier/{id}")
     public ResponseEntity<Defausse> modifier(@PathVariable Long id, @RequestBody Defausse defausse) {
-        return defausseService.getOne(id)
+        return defausseRepository.findById(id)
                 .map(d -> {
                     d.setIdDefausse(defausse.getIdDefausse());
-                    Defausse defausseModifiee = defausseService.modifier(d);
+                    Defausse defausseModifiee = defausseRepository.saveAndFlush(d);
                     return ResponseEntity.ok(defausseModifiee);
                 }).orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/supprimer/{id}")
     public ResponseEntity<Object> supprimer(@PathVariable Long id) {
-        return defausseService.getOne(id)
+        return defausseRepository.findById(id)
                 .map(d -> {
-                    defausseService.supprimer(d.getIdDefausse());
+                    defausseRepository.deleteById(d.getIdDefausse());
                     return ResponseEntity.ok().build();
                 }).orElse(ResponseEntity.notFound().build());
     }

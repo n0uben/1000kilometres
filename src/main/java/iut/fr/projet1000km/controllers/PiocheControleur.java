@@ -1,7 +1,7 @@
 package iut.fr.projet1000km.controllers;
 
 import iut.fr.projet1000km.models.Pioche;
-import iut.fr.projet1000km.services.PiocheService;
+import iut.fr.projet1000km.repository.PiocheRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,10 +11,10 @@ import java.util.List;
 @RequestMapping("/pioche")
 public class PiocheControleur {
 
-    private final PiocheService piocheService;
+    private final PiocheRepository piocheRepository;
 
-    public PiocheControleur(PiocheService piocheService) {
-        this.piocheService = piocheService;
+    public PiocheControleur(PiocheRepository piocheRepository) {
+        this.piocheRepository = piocheRepository;
     }
 
     /**
@@ -23,27 +23,27 @@ public class PiocheControleur {
      */
     @GetMapping
     public List<Pioche> getAll() {
-        return piocheService.getAll();
+        return piocheRepository.findAll();
     }
 
     @GetMapping(value = "{id}")
     public ResponseEntity<Pioche> getById(@PathVariable final Long id) {
-        return piocheService.getOne(id)
+        return piocheRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping("/creer")
     public Pioche creer(@RequestBody Pioche pioche) {
-        return piocheService.creer(pioche);
+        return piocheRepository.saveAndFlush(pioche);
     }
 
     @PutMapping("/modifier/{id}")
     public ResponseEntity<Pioche> modifier(@PathVariable Long id, @RequestBody Pioche pioche) {
-        return piocheService.getOne(id)
+        return piocheRepository.findById(id)
                 .map(p -> {
                     p.setIdPioche(pioche.getIdPioche());
-                    Pioche piocheModifiee = piocheService.modifier(p);
+                    Pioche piocheModifiee = piocheRepository.saveAndFlush(p);
                     return ResponseEntity.ok(piocheModifiee);
                 })
                 .orElse(ResponseEntity.notFound().build());
@@ -51,9 +51,9 @@ public class PiocheControleur {
 
     @DeleteMapping("/supprimer/{id}")
     public ResponseEntity<Object> supprimer(@PathVariable Long id) {
-        return piocheService.getOne(id)
+        return piocheRepository.findById(id)
                 .map(p -> {
-                    piocheService.supprimer(p.getIdPioche());
+                    piocheRepository.deleteById(p.getIdPioche());
                     return ResponseEntity.ok().build();
                 } )
                 .orElse(ResponseEntity.notFound().build());
