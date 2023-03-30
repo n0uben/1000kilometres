@@ -2,7 +2,6 @@ package iut.fr.projet1000km;
 
 import iut.fr.projet1000km.models.Utilisateur;
 import iut.fr.projet1000km.repository.UtilisateurRepository;
-import iut.fr.projet1000km.services.UtilisateurService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;

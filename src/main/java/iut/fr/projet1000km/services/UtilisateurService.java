@@ -4,7 +4,6 @@ import iut.fr.projet1000km.models.Utilisateur;
 import iut.fr.projet1000km.repository.UtilisateurRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
