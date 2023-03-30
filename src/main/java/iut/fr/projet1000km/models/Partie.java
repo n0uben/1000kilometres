@@ -1,6 +1,7 @@
 package iut.fr.projet1000km.models;
 
 import jakarta.persistence.*;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class CarteControleurTest {
+class CarteControleurTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -108,6 +108,4 @@ public class CarteControleurTest {
         //on vérifie que la carte a bien été supprimée
         Assertions.assertFalse(carteRepository.findById(carte.getIdCarte()).isPresent());
     }
-
-
 }

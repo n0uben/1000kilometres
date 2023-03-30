@@ -31,4 +31,9 @@ INSERT INTO `carte` (`effet`, `km`, `nb_dispo`, `nom`, `type_carte_id_type_carte
 INSERT INTO `carte` (`effet`, `km`, `nb_dispo`, `nom`, `type_carte_id_type_carte`) VALUES ('km', 100, 12, '100 Km', 4);
 INSERT INTO `carte` (`effet`, `km`, `nb_dispo`, `nom`, `type_carte_id_type_carte`) VALUES ('km', 200, 4, '200 Km', 4);
 
-INSERT INTO `partie` (`id_partie`, `code_partie`, `duree_tour`, `nombre_joueurs`) VALUES ( 1, 'azerty', 30, 3 )
+INSERT INTO `partie` (`id_partie`, `code_partie`, `duree_tour`, `nombre_joueurs`) VALUES ( 1, 'code1', 30, 3 );
+INSERT INTO `partie` (`id_partie`, `code_partie`, `duree_tour`, `nombre_joueurs`) VALUES ( 2, 'code2', 40, 4 );
+
+INSERT INTO `partie_joueurs` (`partie_id_partie`, `joueurs_id_utilisateur`) VALUES ( 1, 1 );
+
+INSERT INTO `defausse` (`id_defausse`, `partie_id_partie`) VALUES ( 2, 2 );
