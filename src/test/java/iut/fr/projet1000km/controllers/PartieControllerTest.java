@@ -11,12 +11,11 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class PartieControllerTest {
+class PartieControllerTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -28,7 +27,7 @@ public class PartieControllerTest {
     private UtilisateurRepository utilisateurRepository;
 
     @Test
-    public void getAllTest() {
+    void getAllTest() {
         ResponseEntity<Partie[]> response = this.restTemplate.getForEntity("/partie", Partie[].class);
         List<Partie> parties = Arrays.asList(response.getBody());
 
@@ -38,7 +37,7 @@ public class PartieControllerTest {
     }
 
     @Test
-    public void getByIdTest() {
+    void getByIdTest() {
         Long id = 1L;
 
         ResponseEntity<Partie> response = this.restTemplate.getForEntity("/partie/" + id, Partie.class);
