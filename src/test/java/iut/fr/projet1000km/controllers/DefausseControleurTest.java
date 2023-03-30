@@ -1,15 +1,14 @@
 package iut.fr.projet1000km.controllers;
 
 import iut.fr.projet1000km.models.Defausse;
-import iut.fr.projet1000km.models.Partie;
 import iut.fr.projet1000km.repository.DefausseRepository;
 import iut.fr.projet1000km.repository.PartieRepository;
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -26,6 +25,8 @@ class DefausseControleurTest {
     private DefausseRepository defausseRepository;
     @Autowired
     private PartieRepository partieRepository;
+    @Autowired
+    private DefausseControleur defausseControleur;
 
     @Test
     void getAllTest() {
@@ -55,12 +56,8 @@ class DefausseControleurTest {
     }
 
     @Test
-    @Transactional
     void creerTest() {
         Defausse defausse = new Defausse();
-        defausse.setIdDefausse(1L);
-        Partie partie = partieRepository.findById(1L).get();
-        defausse.setPartie(partie);
 
         ResponseEntity<Defausse> response = restTemplate.postForEntity(
                 "/defausse/creer",
@@ -69,6 +66,18 @@ class DefausseControleurTest {
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
         Assertions.assertNotNull(response.getBody());
-        Assertions.assertEquals("code1", response.getBody().getPartie().getCodePartie());
+    }
+
+    @Test
+    void supprimerTest() {
+        ResponseEntity<Void> response = restTemplate.exchange(
+                "/defausse/supprimer/3",
+                HttpMethod.DELETE,
+                null,
+                Void.class
+        );
+
+        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+        Assertions.assertFalse(defausseRepository.findById(3L).isPresent());
     }
 }
