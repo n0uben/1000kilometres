@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class PartieControllerTest {
+class PartieControleurTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
