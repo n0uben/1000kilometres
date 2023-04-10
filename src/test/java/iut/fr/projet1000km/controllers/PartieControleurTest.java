@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -65,6 +66,9 @@ class PartieControleurTest {
 
         Assertions.assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
         Assertions.assertTrue(mvcResult.getResponse().getContentAsString().contains("idPartie\":1"));
+
+        verify(partieRepository, times(1)).findById(any());
+
     }
 
     @Test
@@ -75,6 +79,33 @@ class PartieControleurTest {
                 .andReturn();
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND.value(),mvcResult.getResponse().getStatus());
+        verify(partieRepository, times(1)).findById(any());
+
+    }
+
+//    @Test
+//    void testCreer() {
+//
+//    }
+//
+//    @Test
+//    void testModifierPartieExists() {
+//
+//    }
+//
+    @Test
+    void testModifierPartieNotFound() throws Exception {
+        String partieJson = "{\"idPartie\":1,\"nombreJoueurs\":4,\"dureeTour\":30,\"codePartie\":\"code1\",\"joueurs\":[]}";
+        when(partieRepository.findById(any())).thenReturn(Optional.empty());
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/partie/modifier/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(partieJson))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andReturn();
+
+        verify(partieRepository, times(1)).findById(any());
+        verify(partieRepository, never()).saveAndFlush(any(Partie.class));
     }
 
     @Test
