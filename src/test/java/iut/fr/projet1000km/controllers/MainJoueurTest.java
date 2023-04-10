@@ -79,33 +79,33 @@ class MainJoueurTest {
         Assertions.assertTrue(mvcResult.getResponse().getContentAsString().contains("idMain\":1"));
     }
 
-//    @Test
-//    void testModifierMainExists() throws Exception {
-//        MainJoueur existingMainJoueur = new MainJoueur();
-//        existingMainJoueur.setIdMain(1L);
-//        MainJoueur updatedMainJoueur = new MainJoueur();
-//        existingMainJoueur.setIdMain(2L);
-//
-//        String updatedMainJoueurJson = "{\"idMain\":2,\"partie\":null,\"utilisateur\":null,\"cartes\":null}";
-//
-//        when(mainJoueurRepository.findById(existingMainJoueur.getIdMain())).thenReturn(Optional.of(existingMainJoueur));
-//        when(mainJoueurRepository.saveAndFlush(existingMainJoueur)).thenReturn(updatedMainJoueur);
-//
-//        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put("/main/modifier/1")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(updatedMainJoueurJson))
-//                .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andReturn();
-//
-//        verify(mainJoueurRepository, times(1)).findById(existingMainJoueur.getIdMain());
-//        verify(mainJoueurRepository, times(1)).saveAndFlush(existingMainJoueur);
-//
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        MainJoueur returnedMainJoueur = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), MainJoueur.class);
-//
-//        Assertions.assertEquals(updatedMainJoueur.getIdMain(), returnedMainJoueur.getIdMain());
-//
-//    }
+    @Test
+    void testModifierMainExists() throws Exception {
+        MainJoueur existingMainJoueur = new MainJoueur();
+        existingMainJoueur.setIdMain(1L);
+        MainJoueur updatedMainJoueur = new MainJoueur();
+        existingMainJoueur.setIdMain(1L);
+
+        String updatedMainJoueurJson = "{\"idMain\":1,\"partie\":null,\"utilisateur\":null,\"cartes\":null}";
+
+        when(mainJoueurRepository.findById(existingMainJoueur.getIdMain())).thenReturn(Optional.of(existingMainJoueur));
+        when(mainJoueurRepository.saveAndFlush(existingMainJoueur)).thenReturn(updatedMainJoueur);
+
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put("/main/modifier/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(updatedMainJoueurJson))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn();
+
+        verify(mainJoueurRepository, times(1)).findById(existingMainJoueur.getIdMain());
+        verify(mainJoueurRepository, times(1)).saveAndFlush(existingMainJoueur);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        MainJoueur returnedMainJoueur = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), MainJoueur.class);
+
+        Assertions.assertEquals(updatedMainJoueur.getIdMain(), returnedMainJoueur.getIdMain());
+
+    }
 
     @Test
     void testModifierMainNotFound() throws Exception {
