@@ -1,111 +1,170 @@
 package iut.fr.projet1000km.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import iut.fr.projet1000km.models.Carte;
 import iut.fr.projet1000km.repository.CarteRepository;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
 class CarteControleurTest {
 
-    @Autowired
-    private TestRestTemplate restTemplate;
+    private MockMvc mockMvc;
 
-    @Autowired
+    @Mock
     private CarteRepository carteRepository;
 
-    @Test
-    void getAllTest() {
-        ResponseEntity<Carte[]> response = restTemplate.getForEntity("/carte", Carte[].class);
-        List<Carte> cartes = Arrays.asList(response.getBody());
-
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertNotNull(cartes);
-        Assertions.assertFalse(cartes.isEmpty());
+    @BeforeEach
+    void setup() {
+        MockitoAnnotations.openMocks(this);
+        this.mockMvc = MockMvcBuilders.standaloneSetup(new CarteControleur(carteRepository)).build();
     }
 
     @Test
-    void getByIdTest() {
-        Long id = 2L;
-        ResponseEntity<Carte> response = restTemplate.getForEntity("/carte/" + id, Carte.class);
-        Carte carte = response.getBody();
+    void testGetAll() throws Exception {
+        //crée le mock de la fonction findal
+        List<Carte> cartes = new ArrayList<>();
+        cartes.add(new Carte(1L, "carte1", 100, "effet1", 5));
+        cartes.add(new Carte(2L, "carte2", 200, "effet2", 10));
+        when(carteRepository.findAll()).thenReturn(cartes);
 
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertNotNull(carte);
-        Assertions.assertEquals(id, carte.getIdCarte());
+        //fait la requete avec appel au mock
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/carte").accept(MediaType.APPLICATION_JSON)).andReturn();
+
+        //on verifie le resultat de la requete
+        Assertions.assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
+        Assertions.assertEquals("[{\"idCarte\":1,\"nom\":\"carte1\",\"km\":100,\"effet\":\"effet1\",\"nbDispo\":5},{\"idCarte\":2,\"nom\":\"carte2\",\"km\":200,\"effet\":\"effet2\",\"nbDispo\":10}]"
+                , mvcResult.getResponse().getContentAsString());
+        Mockito.verify(carteRepository, times(1)).findAll();
     }
 
     @Test
-    void creerTest() {
-        Carte newCarte = new Carte();
-        newCarte.setEffet("effet");
-        ResponseEntity<Carte> response = restTemplate.postForEntity("/carte/creer", newCarte, Carte.class);
+    void testGetById() throws Exception {
+        Carte carte = new Carte(1l, "carte 1", 100, "effet 1", 2);
+        when(carteRepository.findById(any())).thenReturn(Optional.of(carte));
 
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertNotNull(response.getBody());
-        Assertions.assertEquals("effet", response.getBody().getEffet());
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/carte/1").accept(MediaType.APPLICATION_JSON)).andReturn();
+
+        Assertions.assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
+        Assertions.assertTrue(mvcResult.getResponse().getContentAsString().contains("\"idCarte\":1"));
+        Mockito.verify(carteRepository, times(1)).findById(any());
     }
 
     @Test
-    void modifierTest() {
-        Carte carte = new Carte();
-        carte.setEffet("effet");
-        carte.setNom("nom");
-        carte.setKm(500);
-        carte.setNbDispo(2);
-        //on cree notre carte en BDD
-        carte = carteRepository.saveAndFlush(carte);
+    void testGetByIdNotFound() throws Exception {
+        when(carteRepository.findById(any())).thenReturn(Optional.empty());
 
-        //on prepare notre carte modifiee
-        Carte carteModifiee = new Carte();
-        carteModifiee.setEffet("nouvel effet");
-        carteModifiee.setNom("nouveau nom");
-        carteModifiee.setKm(400);
-        carteModifiee.setNbDispo(4);
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/carte/1").accept(MediaType.APPLICATION_JSON)).andReturn();
 
-        //on fait notre requete put pour modifier la carte créée précédemment
-        ResponseEntity<Carte> response = restTemplate.exchange(
-                "/carte/modifier/" + carte.getIdCarte(),
-                HttpMethod.PUT,
-                new HttpEntity<>(carteModifiee),
-                Carte.class);
-
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-
-        //on vérifie que la carte renvoyée a bien été modifiée
-        Assertions.assertNotNull(response.getBody());
-        Assertions.assertEquals("nouvel effet", response.getBody().getEffet());
-        Assertions.assertEquals("nouveau nom", response.getBody().getNom());
-        Assertions.assertEquals(400, response.getBody().getKm());
-        Assertions.assertEquals(4, response.getBody().getNbDispo());
+        Assertions.assertEquals(HttpStatus.NOT_FOUND.value(), mvcResult.getResponse().getStatus());
+        Mockito.verify(carteRepository, times(1)).findById(any());
     }
 
     @Test
-    void supprimerTest() {
-        Carte carte = new Carte();
-        carte.setNom("super carte");
-        carte = carteRepository.saveAndFlush(carte);
+    void testCreer() throws Exception {
+        Carte carte = new Carte(1l, "carte 1", 100, "effet 1", 10);
+        when(carteRepository.saveAndFlush(any(Carte.class))).thenReturn(carte);
 
-        ResponseEntity<Void> response = restTemplate.exchange(
-                "/carte/supprimer/" + carte.getIdCarte(),
-                HttpMethod.DELETE,
-                null,
-                Void.class
-        );
+        String carteJson = "{\"idCarte\":1,\"nom\":\"carte 1\",\"km\":100,\"effet\":\"effet 1\",\"nbDispo\":10}";
 
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+        //on fait la requete en envoyant le Json et on pré-test le statut OK de la réponse
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/carte/creer")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(carteJson))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn();
+        verify(carteRepository, times(1)).saveAndFlush(any(Carte.class));
 
-        //on vérifie que la carte a bien été supprimée
-        Assertions.assertFalse(carteRepository.findById(carte.getIdCarte()).isPresent());
+        //on transforme le json en objet de la classe carte
+        ObjectMapper objectMapper = new ObjectMapper();
+        Carte createdCarte = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Carte.class);
+
+        Assertions.assertEquals(carte.getIdCarte(), createdCarte.getIdCarte());
+        Assertions.assertEquals(carte.getNom(), createdCarte.getNom());
+        Assertions.assertEquals(carte.getKm(), createdCarte.getKm());
+        Assertions.assertEquals(carte.getEffet(), createdCarte.getEffet());
+        Assertions.assertEquals(carte.getNbDispo(), createdCarte.getNbDispo());
     }
+
+    @Test
+    void testModifierCarteNotFound() throws Exception {
+
+        String updatedCarteJson = "{\"idCarte\":1,\"nom\":\"carte 1\",\"km\":100,\"effet\":\"effet 1\",\"nbDispo\":10}";
+
+        when(carteRepository.findById(any())).thenReturn(Optional.empty());
+
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put("/carte/modifier/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(updatedCarteJson))
+                .andReturn();
+
+        verify(carteRepository,  times(1)).findById(1L);
+        verify(carteRepository,  never()).saveAndFlush(any(Carte.class));
+
+        Assertions.assertEquals(HttpStatus.NOT_FOUND.value(), mvcResult.getResponse().getStatus());
+    }
+
+    @Test
+    void testModifierCarteExists() throws Exception {
+        Carte existingCarte = new Carte(1l, "carte 1", 100, "effet 1", 10);
+        Carte updatedCarte = new Carte(1l, "carte 1", 200, "effet 1", 10);
+
+        String updatedCarteJson = "{\"idCarte\":1,\"nom\":\"carte 1\",\"km\":100,\"effet\":\"effet 1\",\"nbDispo\":10}";
+
+        when(carteRepository.findById(existingCarte.getIdCarte())).thenReturn(Optional.of(existingCarte));
+        when(carteRepository.saveAndFlush(existingCarte)).thenReturn(updatedCarte);
+
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put("/carte/modifier/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(updatedCarteJson))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn();
+
+        verify(carteRepository, times(1)).findById(existingCarte.getIdCarte());
+        verify(carteRepository, times(1)).saveAndFlush(existingCarte);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        Carte carteReturned = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Carte.class);
+
+        Assertions.assertEquals(updatedCarte.getIdCarte(), carteReturned.getIdCarte());
+        Assertions.assertEquals(updatedCarte.getNom(), carteReturned.getNom());
+        Assertions.assertEquals(updatedCarte.getKm(), carteReturned.getKm());
+        Assertions.assertEquals(updatedCarte.getEffet(), carteReturned.getEffet());
+        Assertions.assertEquals(updatedCarte.getNbDispo(), carteReturned.getNbDispo());
+    }
+
+    @Test
+    void testSupprimerCarteExists() throws Exception {
+        Long id = 1L;
+        Carte carte = new Carte(id, "carte 1", 100, "effet 1", 10);
+
+        when(carteRepository.findById(id)).thenReturn(Optional.of(carte));
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/carte/supprimer/" + id ))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string(""))
+                .andReturn();
+
+        verify(carteRepository, times(1)).findById(id);
+        verify(carteRepository, times(1)).deleteById(id);
+    }
+
+
 }
