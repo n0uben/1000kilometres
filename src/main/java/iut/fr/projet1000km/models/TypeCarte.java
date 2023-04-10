@@ -6,16 +6,16 @@ import jakarta.persistence.*;
 public class TypeCarte {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idTypeCarte;
+    private Long idTypeCarte;
 
     @Column
     private String nomTypeCarte;
 
-    public long getIdTypeCarte() {
+    public Long getIdTypeCarte() {
         return idTypeCarte;
     }
 
-    public void setIdTypeCarte(long idTypeCarte) {
+    public void setIdTypeCarte(Long idTypeCarte) {
         this.idTypeCarte = idTypeCarte;
     }
 

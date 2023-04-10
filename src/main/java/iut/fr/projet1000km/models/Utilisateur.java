@@ -23,9 +23,6 @@ public class Utilisateur {
     private boolean peutAvancer = false;
 
 
-    public Utilisateur() {
-    }
-
     @ManyToMany
     private List<Utilisateur> amis;
 
