@@ -40,7 +40,7 @@ class MainJoueurTest {
     @Test
     void testGetByIdMainExists() throws Exception {
         MainJoueur mainJoueur = new MainJoueur();
-        mainJoueur.setIdMain(1L);
+        mainJoueur.setIdMain((Long) 1L);
         when(mainJoueurRepository.findById(mainJoueur.getIdMain())).thenReturn(Optional.of(mainJoueur));
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/main/"+ mainJoueur.getIdMain()))
@@ -61,7 +61,7 @@ class MainJoueurTest {
     @Test
     void testCreer() throws Exception {
         MainJoueur mainJoueur = new MainJoueur();
-        mainJoueur.setIdMain(1L);
+        mainJoueur.setIdMain((Long) 1L);
 
         String mainJson = "{\"idMain\":1,\"partie\":null,\"utilisateur\":null,\"cartes\":null}";
 
@@ -82,9 +82,9 @@ class MainJoueurTest {
     @Test
     void testModifierMainExists() throws Exception {
         MainJoueur existingMainJoueur = new MainJoueur();
-        existingMainJoueur.setIdMain(1L);
+        existingMainJoueur.setIdMain((Long) 1L);
         MainJoueur updatedMainJoueur = new MainJoueur();
-        existingMainJoueur.setIdMain(1L);
+        existingMainJoueur.setIdMain((Long) 1L);
 
         String updatedMainJoueurJson = "{\"idMain\":1,\"partie\":null,\"utilisateur\":null,\"cartes\":null}";
 
@@ -119,7 +119,7 @@ class MainJoueurTest {
                         .content(mainJson))
                 .andReturn();
 
-        verify(mainJoueurRepository, times(1)).findById(1L);
+        verify(mainJoueurRepository, times(1)).findById((Long) 1L);
         verify(mainJoueurRepository, never()).saveAndFlush(any(MainJoueur.class));
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND.value(), mvcResult.getResponse().getStatus());
@@ -128,7 +128,7 @@ class MainJoueurTest {
 
     @Test
     void testDeleteMainNotFound() throws Exception {
-        Long id = 1L;
+        Long id = (Long) 1L;
         when(mainJoueurRepository.findById(any())).thenReturn(Optional.empty());
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete("/main/supprimer/" + id))
@@ -141,7 +141,7 @@ class MainJoueurTest {
 
     @Test
     void testDeleteMainExists() throws Exception {
-        long id = 1L;
+        Long id = (Long) 1L;
         MainJoueur mainJoueur = new MainJoueur();
         mainJoueur.setIdMain(id);
 

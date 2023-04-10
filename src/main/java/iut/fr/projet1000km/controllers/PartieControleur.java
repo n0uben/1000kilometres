@@ -41,7 +41,6 @@ public class PartieControleur {
 
         //on va chercher en bdd les infos completes
         Utilisateur utilisateurBdd = this.utilisateurRepository.findById(idCreateur).orElse(new Utilisateur());
-
         //on supprime et remplace l'utilisateur créateur dans la partie reçue par les infos en bdd
         partie.getJoueurs().remove(0);
         partie.getJoueurs().add(utilisateurBdd);

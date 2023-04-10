@@ -12,10 +12,10 @@ public class Partie {
     private Long idPartie;
 
     @Column
-    private Integer nombreJoueurs;
+    private int nombreJoueurs;
 
     @Column
-    private Integer dureeTour;
+    private int dureeTour;
 
     @Column
     private String codePartie;
@@ -26,7 +26,7 @@ public class Partie {
     public Partie() {
     }
 
-    public Partie(Long idPartie, Integer nombreJoueurs, Integer dureeTour, String codePartie) {
+    public Partie(Long idPartie, int nombreJoueurs, int dureeTour, String codePartie) {
         this.idPartie = idPartie;
         this.nombreJoueurs = nombreJoueurs;
         this.dureeTour = dureeTour;
@@ -41,11 +41,11 @@ public class Partie {
         this.idPartie = idPartie;
     }
 
-    public Integer getNombreJoueurs() {
+    public int getNombreJoueurs() {
         return nombreJoueurs;
     }
 
-    public void setNombreJoueurs(Integer nombreJoueurs) {
+    public void setNombreJoueurs(int nombreJoueurs) {
         if (nombreJoueurs < Constants.MIN_NB_JOUEURS) {
             this.nombreJoueurs = Constants.MIN_NB_JOUEURS;
         } else if (nombreJoueurs > Constants.MAX_NB_JOUEURS) {
@@ -55,11 +55,11 @@ public class Partie {
         }
     }
 
-    public Integer getDureeTour() {
+    public int getDureeTour() {
         return dureeTour;
     }
 
-    public void setDureeTour(Integer dureeTour) {
+    public void setDureeTour(int dureeTour) {
 
         if (dureeTour < Constants.MIN_DUREE_TOUR) {
             this.dureeTour = Constants.MIN_DUREE_TOUR;
