@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -76,6 +77,53 @@ class MainJoueurTest {
         verify(mainJoueurRepository, times(1)).saveAndFlush(any(MainJoueur.class));
 
         Assertions.assertTrue(mvcResult.getResponse().getContentAsString().contains("idMain\":1"));
+    }
+
+//    @Test
+//    void testModifierMainExists() throws Exception {
+//        MainJoueur existingMainJoueur = new MainJoueur();
+//        existingMainJoueur.setIdMain(1L);
+//        MainJoueur updatedMainJoueur = new MainJoueur();
+//        existingMainJoueur.setIdMain(2L);
+//
+//        String updatedMainJoueurJson = "{\"idMain\":2,\"partie\":null,\"utilisateur\":null,\"cartes\":null}";
+//
+//        when(mainJoueurRepository.findById(existingMainJoueur.getIdMain())).thenReturn(Optional.of(existingMainJoueur));
+//        when(mainJoueurRepository.saveAndFlush(existingMainJoueur)).thenReturn(updatedMainJoueur);
+//
+//        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put("/main/modifier/1")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(updatedMainJoueurJson))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andReturn();
+//
+//        verify(mainJoueurRepository, times(1)).findById(existingMainJoueur.getIdMain());
+//        verify(mainJoueurRepository, times(1)).saveAndFlush(existingMainJoueur);
+//
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        MainJoueur returnedMainJoueur = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), MainJoueur.class);
+//
+//        Assertions.assertEquals(updatedMainJoueur.getIdMain(), returnedMainJoueur.getIdMain());
+//
+//    }
+
+    @Test
+    void testModifierMainNotFound() throws Exception {
+
+        String mainJson = "{\"idMain\":1,\"partie\":null,\"utilisateur\":null,\"cartes\":null}";
+
+        when(mainJoueurRepository.findById(any())).thenReturn(Optional.empty());
+
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put("/main/modifier/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mainJson))
+                .andReturn();
+
+        verify(mainJoueurRepository, times(1)).findById(1L);
+        verify(mainJoueurRepository, never()).saveAndFlush(any(MainJoueur.class));
+
+        Assertions.assertEquals(HttpStatus.NOT_FOUND.value(), mvcResult.getResponse().getStatus());
+
     }
 
     @Test
