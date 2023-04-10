@@ -166,5 +166,14 @@ class CarteControleurTest {
         verify(carteRepository, times(1)).deleteById(id);
     }
 
+    @Test
+    void testSupprimerCarteNotFound() throws Exception {
+        when(carteRepository.findById(any())).thenReturn(Optional.empty());
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/carte/supprimer/1")).andExpect(MockMvcResultMatchers.status().isNotFound());
+        verify(carteRepository, times(1)).findById(any());
+        verify(carteRepository, never()).deleteById(any());
+    }
+
 
 }
