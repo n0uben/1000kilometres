@@ -6,11 +6,8 @@ import iut.fr.projet1000km.repository.CarteRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
@@ -62,7 +59,7 @@ class CarteControleurTest {
 
     @Test
     void testGetById() throws Exception {
-        Carte carte = new Carte(1l, "carte 1", 100, "effet 1", 2);
+        Carte carte = new Carte(1L, "carte 1", 100, "effet 1", 2);
         when(carteRepository.findById(any())).thenReturn(Optional.of(carte));
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/carte/1").accept(MediaType.APPLICATION_JSON)).andReturn();
@@ -84,15 +81,15 @@ class CarteControleurTest {
 
     @Test
     void testCreer() throws Exception {
-        Carte carte = new Carte(1l, "carte 1", 100, "effet 1", 10);
+        Carte carte = new Carte(1L, "carte 1", 100, "effet 1", 10);
         when(carteRepository.saveAndFlush(any(Carte.class))).thenReturn(carte);
 
         String carteJson = "{\"idCarte\":1,\"nom\":\"carte 1\",\"km\":100,\"effet\":\"effet 1\",\"nbDispo\":10}";
 
         //on fait la requete en envoyant le Json et on pré-test le statut OK de la réponse
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/carte/creer")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(carteJson))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(carteJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
         verify(carteRepository, times(1)).saveAndFlush(any(Carte.class));
@@ -120,16 +117,16 @@ class CarteControleurTest {
                         .content(updatedCarteJson))
                 .andReturn();
 
-        verify(carteRepository,  times(1)).findById(1L);
-        verify(carteRepository,  never()).saveAndFlush(any(Carte.class));
+        verify(carteRepository, times(1)).findById(1L);
+        verify(carteRepository, never()).saveAndFlush(any(Carte.class));
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND.value(), mvcResult.getResponse().getStatus());
     }
 
     @Test
     void testModifierCarteExists() throws Exception {
-        Carte existingCarte = new Carte(1l, "carte 1", 100, "effet 1", 10);
-        Carte updatedCarte = new Carte(1l, "carte 1", 200, "effet 1", 10);
+        Carte existingCarte = new Carte(1L, "carte 1", 100, "effet 1", 10);
+        Carte updatedCarte = new Carte(1L, "carte 1", 200, "effet 1", 10);
 
         String updatedCarteJson = "{\"idCarte\":1,\"nom\":\"carte 1\",\"km\":100,\"effet\":\"effet 1\",\"nbDispo\":10}";
 
@@ -162,7 +159,7 @@ class CarteControleurTest {
 
         when(carteRepository.findById(id)).thenReturn(Optional.of(carte));
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/carte/supprimer/" + id ))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/carte/supprimer/" + id))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string(""))
                 .andReturn();

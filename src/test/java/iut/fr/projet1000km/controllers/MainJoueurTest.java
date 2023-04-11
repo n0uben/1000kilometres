@@ -7,9 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -40,15 +38,16 @@ class MainJoueurTest {
     @Test
     void testGetByIdMainExists() throws Exception {
         MainJoueur mainJoueur = new MainJoueur();
-        mainJoueur.setIdMain((Long) 1L);
+        mainJoueur.setIdMain(1L);
         when(mainJoueurRepository.findById(mainJoueur.getIdMain())).thenReturn(Optional.of(mainJoueur));
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/main/"+ mainJoueur.getIdMain()))
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/main/" + mainJoueur.getIdMain()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
 
         Assertions.assertTrue(mvcResult.getResponse().getContentAsString().contains("idMain\":1"));
     }
+
     @Test
     void testGetByIdMainNotFound() throws Exception {
         when(mainJoueurRepository.findById(any())).thenReturn(Optional.empty());
@@ -61,7 +60,7 @@ class MainJoueurTest {
     @Test
     void testCreer() throws Exception {
         MainJoueur mainJoueur = new MainJoueur();
-        mainJoueur.setIdMain((Long) 1L);
+        mainJoueur.setIdMain(1L);
 
         String mainJson = "{\"idMain\":1,\"partie\":null,\"utilisateur\":null,\"cartes\":null}";
 
@@ -70,7 +69,7 @@ class MainJoueurTest {
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/main/creer")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mainJson)
-                        )
+                )
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
 
@@ -82,9 +81,9 @@ class MainJoueurTest {
     @Test
     void testModifierMainExists() throws Exception {
         MainJoueur existingMainJoueur = new MainJoueur();
-        existingMainJoueur.setIdMain((Long) 1L);
+        existingMainJoueur.setIdMain(1L);
         MainJoueur updatedMainJoueur = new MainJoueur();
-        existingMainJoueur.setIdMain((Long) 1L);
+        existingMainJoueur.setIdMain(1L);
 
         String updatedMainJoueurJson = "{\"idMain\":1,\"partie\":null,\"utilisateur\":null,\"cartes\":null}";
 
@@ -119,7 +118,7 @@ class MainJoueurTest {
                         .content(mainJson))
                 .andReturn();
 
-        verify(mainJoueurRepository, times(1)).findById((Long) 1L);
+        verify(mainJoueurRepository, times(1)).findById(1L);
         verify(mainJoueurRepository, never()).saveAndFlush(any(MainJoueur.class));
 
         Assertions.assertEquals(HttpStatus.NOT_FOUND.value(), mvcResult.getResponse().getStatus());
@@ -128,7 +127,7 @@ class MainJoueurTest {
 
     @Test
     void testDeleteMainNotFound() throws Exception {
-        Long id = (Long) 1L;
+        Long id = 1L;
         when(mainJoueurRepository.findById(any())).thenReturn(Optional.empty());
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete("/main/supprimer/" + id))
@@ -141,7 +140,7 @@ class MainJoueurTest {
 
     @Test
     void testDeleteMainExists() throws Exception {
-        Long id = (Long) 1L;
+        Long id = 1L;
         MainJoueur mainJoueur = new MainJoueur();
         mainJoueur.setIdMain(id);
 
