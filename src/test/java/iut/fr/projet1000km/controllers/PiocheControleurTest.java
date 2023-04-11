@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -20,7 +21,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-public class PiocheControleurTest {
+class PiocheControleurTest {
 
     private MockMvc mockMvc;
 
@@ -61,14 +62,14 @@ public class PiocheControleurTest {
 
         String expectedJson = "{\"idPioche\":1,\"partie\":null,\"cartes\":null}";
 
-        when(piocheRepository.findById(any())).thenReturn(Optional.of(pioche));
+        when(piocheRepository.findById(pioche.getIdPioche())).thenReturn(Optional.of(pioche));
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/pioche/1"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/pioche/" + pioche.getIdPioche()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string(expectedJson))
                 .andReturn();
 
-        verify(piocheRepository, times(1)).findById(any());
+        verify(piocheRepository, times(1)).findById(pioche.getIdPioche());
     }
 
     @Test
@@ -80,5 +81,93 @@ public class PiocheControleurTest {
                 .andReturn();
 
         verify(piocheRepository, times(1)).findById(any());
+    }
+
+    @Test
+    void testCreer() throws Exception {
+        Pioche pioche = new Pioche();
+        pioche.setIdPioche(1L);
+
+        String piocheJson = "{\"idPioche\":1,\"partie\":null,\"cartes\":null}";
+
+        when(piocheRepository.saveAndFlush(any(Pioche.class))).thenReturn(pioche);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/pioche/creer")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(piocheJson))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string(piocheJson))
+                .andReturn();
+
+        verify(piocheRepository, times(1)).saveAndFlush(any(Pioche.class));
+    }
+
+    @Test
+    void testModifierPiocheExists() throws Exception {
+        Pioche pioche = new Pioche();
+        pioche.setIdPioche(1L);
+
+        String piocheJson = "{\"idPioche\":1,\"partie\":null,\"cartes\":null}";
+
+        when(piocheRepository.findById(pioche.getIdPioche())).thenReturn(Optional.of(pioche));
+        when(piocheRepository.saveAndFlush(any(Pioche.class))).thenReturn(pioche);
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/pioche/modifier/" + pioche.getIdPioche())
+                        .content(piocheJson)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string(piocheJson))
+                .andReturn();
+
+        verify(piocheRepository, times(1)).findById(pioche.getIdPioche());
+        verify(piocheRepository, times(1)).saveAndFlush(any(Pioche.class));
+    }
+
+    @Test
+    void testModifierPiocheNotFound() throws Exception {
+        Pioche pioche = new Pioche();
+        pioche.setIdPioche(1L);
+
+        String piocheJson = "{\"idPioche\":1,\"partie\":null,\"cartes\":null}";
+
+        when(piocheRepository.findById(pioche.getIdPioche())).thenReturn(Optional.empty());
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/pioche/modifier/" + pioche.getIdPioche())
+                        .content(piocheJson)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andReturn();
+
+        verify(piocheRepository, times(1)).findById(pioche.getIdPioche());
+        verify(piocheRepository, never()).saveAndFlush(any(Pioche.class));
+    }
+
+    @Test
+    void testSupprimerPiocheExists() throws Exception {
+        Pioche pioche = new Pioche();
+        pioche.setIdPioche(1L);
+
+        when(piocheRepository.findById(pioche.getIdPioche())).thenReturn(Optional.of(pioche));
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/pioche/supprimer/" + pioche.getIdPioche()))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string(""))
+                .andReturn();
+
+        verify(piocheRepository, times(1)).findById(pioche.getIdPioche());
+        verify(piocheRepository, times(1)).deleteById(pioche.getIdPioche());
+    }
+
+    @Test
+    void testSupprimerPiocheNotFound() throws Exception {
+        when(piocheRepository.findById(any())).thenReturn(Optional.empty());
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/pioche/supprimer/1"))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andReturn();
+
+        verify(piocheRepository, times(1)).findById(any());
+        verify(piocheRepository, never()).deleteById(any());
+
     }
 }
