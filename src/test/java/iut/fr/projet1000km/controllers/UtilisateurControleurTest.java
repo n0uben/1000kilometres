@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -90,7 +91,69 @@ class UtilisateurControleurTest {
                 .andReturn();
 
         verify(utilisateurRepository, times(1)).findById(any());
+    }
 
+    @Test
+    void testCreer() throws Exception {
+        Utilisateur utilisateur = new Utilisateur();
+        utilisateur.setIdUtilisateur(1L);
+        utilisateur.setPseudo("pseudo1");
+
+        String utilisateurJson = "{\"idUtilisateur\":1,\"pseudo\":\"pseudo1\",\"motDePasse\":null,\"nbPartiesJouees\":0,\"nbPartiesGagnees\":0,\"kmParcourus\":0,\"peutAvancer\":false,\"amis\":null}";
+
+        when(utilisateurRepository.saveAndFlush(any(Utilisateur.class))).thenReturn(utilisateur);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/utilisateur/creer" )
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(utilisateurJson))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string(utilisateurJson))
+                .andReturn();
+
+        verify(utilisateurRepository, times(1)).saveAndFlush(any(Utilisateur.class));
+    }
+
+    @Test
+    void testModifierUtilisateurExists() throws Exception {
+        Utilisateur utilisateur = new Utilisateur();
+        utilisateur.setIdUtilisateur(1L);
+        utilisateur.setPseudo("pseudo1");
+
+        Utilisateur updatedUtilisateur = new Utilisateur();
+        updatedUtilisateur.setIdUtilisateur(1L);
+        updatedUtilisateur.setPseudo("pseudo 1");
+
+        String utilisateurJson = "{\"idUtilisateur\":1,\"pseudo\":\"pseudo 1\",\"motDePasse\":null,\"nbPartiesJouees\":0,\"nbPartiesGagnees\":0,\"kmParcourus\":0,\"peutAvancer\":false,\"amis\":null}";
+
+        when(utilisateurRepository.findById(any())).thenReturn(Optional.of(utilisateur));
+        when(utilisateurRepository.saveAndFlush(utilisateur)).thenReturn(updatedUtilisateur);
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/utilisateur/modifier/1" )
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(utilisateurJson))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string(utilisateurJson))
+                .andReturn();
+
+        verify(utilisateurRepository, times(1)).findById(any());
+        verify(utilisateurRepository, times(1)).saveAndFlush(any(Utilisateur.class));
+    }
+
+    @Test
+    void testModifierUtilisateurNotFound() throws Exception {
+
+        String utilisateurJson = "{\"idUtilisateur\":1,\"pseudo\":\"pseudo1\",\"motDePasse\":null,\"nbPartiesJouees\":0,\"nbPartiesGagnees\":0,\"kmParcourus\":0,\"peutAvancer\":false,\"amis\":null}";
+
+        when(utilisateurRepository.findById(any())).thenReturn(Optional.empty());
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/utilisateur/modifier/1" )
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(utilisateurJson))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andReturn();
+
+        verify(utilisateurRepository, times(1)).findById(any());
+        verify(utilisateurRepository, never()).saveAndFlush(any(Utilisateur.class));
     }
 
     @Test
