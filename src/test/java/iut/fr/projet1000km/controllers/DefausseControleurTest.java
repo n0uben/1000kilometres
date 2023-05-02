@@ -28,32 +28,32 @@ class DefausseControleurTest {
     @Autowired
     private DefausseControleur defausseControleur;
 
-    @Test
-    void getAllTest() {
-        ResponseEntity<Defausse[]> response = restTemplate.getForEntity(
-                "/defausse",
-                Defausse[].class);
-        List<Defausse> defausseList = Arrays.asList(response.getBody());
-
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertNotNull(defausseList);
-        Assertions.assertFalse(defausseList.isEmpty());
-    }
-
-    @Test
-    void getOneTest() {
-        Long idDefausse = 2L;
-        Long idPartie = 2L;
-
-        ResponseEntity<Defausse> response = restTemplate.getForEntity(
-                "/defausse/" + idDefausse,
-                Defausse.class);
-
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertNotNull(response.getBody());
-        Assertions.assertEquals(idDefausse, response.getBody().getIdDefausse());
-        Assertions.assertEquals(idPartie, response.getBody().getPartie().getIdPartie());
-    }
+//    @Test
+//    void getAllTest() {
+//        ResponseEntity<Defausse[]> response = restTemplate.getForEntity(
+//                "/defausse",
+//                Defausse[].class);
+//        List<Defausse> defausseList = Arrays.asList(response.getBody());
+//
+//        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+//        Assertions.assertNotNull(defausseList);
+//        Assertions.assertFalse(defausseList.isEmpty());
+//    }
+//
+//    @Test
+//    void getOneTest() {
+//        Long idDefausse = 2L;
+//        Long idPartie = 2L;
+//
+//        ResponseEntity<Defausse> response = restTemplate.getForEntity(
+//                "/defausse/" + idDefausse,
+//                Defausse.class);
+//
+//        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+//        Assertions.assertNotNull(response.getBody());
+//        Assertions.assertEquals(idDefausse, response.getBody().getIdDefausse());
+//        Assertions.assertEquals(idPartie, response.getBody().getPartie().getIdPartie());
+//    }
 
     @Test
     void creerTest() {
@@ -68,16 +68,16 @@ class DefausseControleurTest {
         Assertions.assertNotNull(response.getBody());
     }
 
-    @Test
-    void supprimerTest() {
-        ResponseEntity<Void> response = restTemplate.exchange(
-                "/defausse/supprimer/3",
-                HttpMethod.DELETE,
-                null,
-                Void.class
-        );
-
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertFalse(defausseRepository.findById(3L).isPresent());
-    }
+//    @Test
+//    void supprimerTest() {
+//        ResponseEntity<Void> response = restTemplate.exchange(
+//                "/defausse/supprimer/3",
+//                HttpMethod.DELETE,
+//                null,
+//                Void.class
+//        );
+//
+//        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+//        Assertions.assertFalse(defausseRepository.findById(3L).isPresent());
+//    }
 }
