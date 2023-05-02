@@ -85,4 +85,15 @@ public class Partie {
     public void setJoueurs(List<Utilisateur> joueurs) {
         this.joueurs = joueurs;
     }
+
+    @Override
+    public String toString() {
+        return "Partie{" +
+                "idPartie=" + idPartie +
+                ", nombreJoueurs=" + nombreJoueurs +
+                ", dureeTour=" + dureeTour +
+                ", codePartie='" + codePartie + '\'' +
+                ", joueurs=" + joueurs +
+                '}';
+    }
 }

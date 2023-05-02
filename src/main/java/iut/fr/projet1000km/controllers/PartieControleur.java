@@ -8,10 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/partie")
+@CrossOrigin
 public class PartieControleur {
+
+    private static final Logger LOGGER = Logger.getLogger("PartieControleur.class");
 
     private final PartieRepository partieRepository;
     private final UtilisateurRepository utilisateurRepository;
@@ -35,6 +39,9 @@ public class PartieControleur {
 
     @PostMapping("/creer")
     public Partie creer(@RequestBody final Partie partie) {
+
+        LOGGER.info("dans le partie controleur /creer ");
+        LOGGER.info(partie.toString());
 
         //on récupère l'id du joueur créateur fourni dans la requete
         Long idCreateur = partie.getJoueurs().get(0).getIdUtilisateur();

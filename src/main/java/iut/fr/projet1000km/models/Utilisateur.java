@@ -95,4 +95,17 @@ public class Utilisateur {
     public void setAmis(List<Utilisateur> amis) {
         this.amis = amis;
     }
+
+    @Override
+    public String toString() {
+        return "Utilisateur{" +
+                "idUtilisateur=" + idUtilisateur +
+                ", pseudo='" + pseudo + '\'' +
+                ", motDePasse='" + motDePasse + '\'' +
+                ", nbPartiesJouees=" + nbPartiesJouees +
+                ", nbPartiesGagnees=" + nbPartiesGagnees +
+                ", kmParcourus=" + kmParcourus +
+                ", peutAvancer=" + peutAvancer +
+                '}';
+    }
 }
