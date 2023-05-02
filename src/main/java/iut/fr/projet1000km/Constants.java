@@ -1,4 +1,4 @@
-package iut.fr.projet1000km.models;
+package iut.fr.projet1000km;
 
 public final class Constants {
 
@@ -13,5 +13,7 @@ public final class Constants {
 
     public static final int MIN_DUREE_TOUR = 30;
     public static final int MAX_DUREE_TOUR = 90;
+
+    public static final int LONGUEUR_CODE_PARTIE = 12;
 
 }

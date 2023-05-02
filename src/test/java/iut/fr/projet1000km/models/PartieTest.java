@@ -1,5 +1,6 @@
 package iut.fr.projet1000km.models;
 
+import iut.fr.projet1000km.Constants;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

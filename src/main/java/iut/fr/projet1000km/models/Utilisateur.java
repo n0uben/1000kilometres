@@ -1,5 +1,6 @@
 package iut.fr.projet1000km.models;
 
+import iut.fr.projet1000km.Constants;
 import jakarta.persistence.*;
 
 import java.util.List;

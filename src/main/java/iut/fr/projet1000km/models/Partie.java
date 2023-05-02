@@ -1,5 +1,6 @@
 package iut.fr.projet1000km.models;
 
+import iut.fr.projet1000km.Constants;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -22,7 +23,6 @@ public class Partie {
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Utilisateur> joueurs = new ArrayList<>();
-
     public Partie() {
     }
 
