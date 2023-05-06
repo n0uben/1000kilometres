@@ -58,6 +58,7 @@ public class PartieControleur {
                     p.setNombreJoueurs(partie.getNombreJoueurs());
                     p.setDureeTour(partie.getDureeTour());
                     p.setCodePartie(partie.getCodePartie());
+                    p.setJoueurs(partie.getJoueurs());
                     Partie partiemodifiee = partieService.modifier(p);
                     return ResponseEntity.ok(partiemodifiee);
                 }).orElse(ResponseEntity.notFound().build());
