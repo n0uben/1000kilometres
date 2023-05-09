@@ -10,14 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/partie")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:5173")
 public class PartieControleur {
-
-    private static final Logger LOGGER = Logger.getLogger("PartieControleur.class");
 
     private final PartieRepository partieRepository;
     private final UtilisateurRepository utilisateurRepository;
@@ -39,17 +36,8 @@ public class PartieControleur {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping(value = "/code/{code}")
-    public ResponseEntity<Partie> getByCode(@PathVariable final String code) {
-        return partieRepository.getPartieByCodePartie(code)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
     @PostMapping("/creer")
     public Partie creer(@RequestBody final Partie partie) {
-
-        //on récupère l'id du joueur créateur fourni dans la requete
         Long idCreateur = partie.getJoueurs().get(0).getIdUtilisateur();
 
         //on va chercher en bdd les infos completes
@@ -57,8 +45,8 @@ public class PartieControleur {
         //on supprime et remplace l'utilisateur créateur dans la partie reçue par les infos en bdd
         partie.getJoueurs().remove(0);
         partie.getJoueurs().add(utilisateurBdd);
+        partie.setEstLancee(false);
         partie.setCodePartie(PartieService.generateCodePartie(Constants.LONGUEUR_CODE_PARTIE));
-        LOGGER.info(partie.toString());
 
         //on sauvegarde
         return this.partieRepository.saveAndFlush(partie);
@@ -78,6 +66,13 @@ public class PartieControleur {
                 }).orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping(value = "/code/{code}")
+    public ResponseEntity<Partie> getByCode(@PathVariable final String code) {
+        return partieRepository.getPartieByCodePartie(code)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @DeleteMapping("/supprimer/{id}")
     public ResponseEntity<Object> supprimer(@PathVariable final Long id) {
 
@@ -86,16 +81,5 @@ public class PartieControleur {
                     partieRepository.deleteById(partieBdd.getIdPartie());
                     return ResponseEntity.ok().build();
                 }).orElse(ResponseEntity.notFound().build());
-    }
-
-    /**
-     * METHODE TEST POUR VOIR SI LA JOINTURE SE FAIT BIEN ENTRE PARTIE ET JOUEURS
-     * >>>>>>>> CA MARCHE
-     * @param id
-     * @return
-     */
-    @GetMapping(value = "/test/{id}")
-    public Partie getPartieByJoueurId(@PathVariable Long id) {
-        return partieRepository.findByJoueurId(id);
     }
 }

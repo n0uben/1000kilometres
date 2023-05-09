@@ -21,6 +21,17 @@ public class Partie {
     @Column
     private String codePartie;
 
+    @Column
+    private boolean estLancee;
+
+    public boolean isEstLancee() {
+        return estLancee;
+    }
+
+    public void setEstLancee(boolean estLancee) {
+        this.estLancee = estLancee;
+    }
+
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Utilisateur> joueurs = new ArrayList<>();
     public Partie() {

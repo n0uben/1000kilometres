@@ -2,6 +2,7 @@ package iut.fr.projet1000km.controllers;
 
 import iut.fr.projet1000km.models.Pioche;
 import iut.fr.projet1000km.repository.PiocheRepository;
+import iut.fr.projet1000km.services.PiocheService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -28,10 +29,13 @@ class PiocheControleurTest {
     @Mock
     private PiocheRepository piocheRepository;
 
+    @Mock
+    private PiocheService piocheService;
+
     @BeforeEach
     void setup() {
         MockitoAnnotations.openMocks(this);
-        this.mockMvc = MockMvcBuilders.standaloneSetup(new PiocheControleur(piocheRepository)).build();
+        this.mockMvc = MockMvcBuilders.standaloneSetup(new PiocheControleur(piocheRepository, piocheService)).build();
     }
 
     @Test

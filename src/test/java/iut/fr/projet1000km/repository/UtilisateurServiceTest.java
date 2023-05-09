@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
-class UtilisateurRepositoryTest {
+class UtilisateurServiceTest {
 
     @Autowired
     private UtilisateurRepository utilisateurRepository;
