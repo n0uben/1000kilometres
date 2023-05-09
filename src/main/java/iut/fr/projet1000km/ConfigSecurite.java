@@ -1,7 +1,7 @@
 package iut.fr.projet1000km;
 
 import iut.fr.projet1000km.models.Utilisateur;
-import iut.fr.projet1000km.services.UtilisateurService;
+import iut.fr.projet1000km.repository.UtilisateurRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -21,16 +21,16 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class ConfigSecurite {
-    private final UtilisateurService utilisateurService;
+    private final UtilisateurRepository utilisateurRepository;
 
-    public ConfigSecurite(UtilisateurService utilisateurService) {
-        this.utilisateurService = utilisateurService;
+    public ConfigSecurite(UtilisateurRepository utilisateurRepository) {
+        this.utilisateurRepository = utilisateurRepository;
     }
 
     @Bean
     public InMemoryUserDetailsManager userDetailsManager() {
         Collection<UserDetails> users = new ArrayList<>();
-        List<Utilisateur> utilisateursDb = utilisateurService.getAll();
+        List<Utilisateur> utilisateursDb = utilisateurRepository.findAll();
 
         for (Utilisateur utilisateur : utilisateursDb) {
             users.add(User.withDefaultPasswordEncoder()

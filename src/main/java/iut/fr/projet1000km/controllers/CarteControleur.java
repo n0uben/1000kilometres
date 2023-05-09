@@ -1,7 +1,7 @@
 package iut.fr.projet1000km.controllers;
 
 import iut.fr.projet1000km.models.Carte;
-import iut.fr.projet1000km.services.CarteService;
+import iut.fr.projet1000km.repository.CarteRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,13 +9,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/carte")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:5173")
 public class CarteControleur {
 
-    private CarteService carteService;
+    private final CarteRepository carteRepository;
 
-    public CarteControleur(CarteService carteService) {
-        this.carteService = carteService;
+
+    public CarteControleur(CarteRepository carteRepository) {
+        this.carteRepository = carteRepository;
     }
 
     /**
@@ -24,7 +25,7 @@ public class CarteControleur {
      */
     @GetMapping
     public List<Carte> getAll() {
-        return carteService.getAll();
+        return carteRepository.findAll();
     }
 
     /**
@@ -36,14 +37,14 @@ public class CarteControleur {
     public ResponseEntity<Carte> getById(@PathVariable final Long id) {
 
         // map & orElse  == then & catch en javascript (getOne == promesse => traiter en tant que tel)
-        return carteService.getOne(id)
+        return carteRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping("/creer")
     public Carte creer(@RequestBody final Carte carte) {
-        return carteService.creer(carte);
+        return carteRepository.saveAndFlush(carte);
     }
 
     /**
@@ -55,13 +56,13 @@ public class CarteControleur {
     @PutMapping("/modifier/{id}")
     public ResponseEntity<Carte> modifier(@PathVariable final Long id, @RequestBody final Carte carte) {
 
-        return carteService.getOne(id)
+        return carteRepository.findById(id)
                 .map(c -> {
                     c.setNom(carte.getNom());
                     c.setEffet(carte.getEffet());
                     c.setKm(carte.getKm());
                     c.setNbDispo(carte.getNbDispo());
-                    Carte carteModifiee = carteService.modifier(c);
+                    Carte carteModifiee = carteRepository.saveAndFlush(c);
                     return ResponseEntity.ok(carteModifiee);
                 }).orElse(ResponseEntity.notFound().build());
     }
@@ -74,9 +75,9 @@ public class CarteControleur {
     @DeleteMapping("/supprimer/{id}")
     public ResponseEntity<Object> supprimer(@PathVariable final Long id) {
 
-        return carteService.getOne(id)
+        return carteRepository.findById(id)
                 .map(carteBdd -> {
-                    carteService.supprimer(carteBdd.getIdCarte());
+                    carteRepository.deleteById(carteBdd.getIdCarte());
                     return ResponseEntity.ok().build();
                 }).orElse(ResponseEntity.notFound().build());
     }

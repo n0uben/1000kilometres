@@ -1,5 +1,6 @@
 package iut.fr.projet1000km.models;
 
+import iut.fr.projet1000km.Constants;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -12,16 +13,36 @@ public class Partie {
     private Long idPartie;
 
     @Column
-    private Integer nombreJoueurs;
+    private int nombreJoueurs;
 
     @Column
-    private Integer dureeTour;
+    private int dureeTour;
 
     @Column
     private String codePartie;
 
+    @Column
+    private boolean estLancee;
+
+    public boolean isEstLancee() {
+        return estLancee;
+    }
+
+    public void setEstLancee(boolean estLancee) {
+        this.estLancee = estLancee;
+    }
+
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Utilisateur> joueurs = new ArrayList<>();
+    public Partie() {
+    }
+
+    public Partie(Long idPartie, int nombreJoueurs, int dureeTour, String codePartie) {
+        this.idPartie = idPartie;
+        this.nombreJoueurs = nombreJoueurs;
+        this.dureeTour = dureeTour;
+        this.codePartie = codePartie;
+    }
 
     public Long getIdPartie() {
         return idPartie;
@@ -31,11 +52,11 @@ public class Partie {
         this.idPartie = idPartie;
     }
 
-    public Integer getNombreJoueurs() {
+    public int getNombreJoueurs() {
         return nombreJoueurs;
     }
 
-    public void setNombreJoueurs(Integer nombreJoueurs) {
+    public void setNombreJoueurs(int nombreJoueurs) {
         if (nombreJoueurs < Constants.MIN_NB_JOUEURS) {
             this.nombreJoueurs = Constants.MIN_NB_JOUEURS;
         } else if (nombreJoueurs > Constants.MAX_NB_JOUEURS) {
@@ -45,11 +66,11 @@ public class Partie {
         }
     }
 
-    public Integer getDureeTour() {
+    public int getDureeTour() {
         return dureeTour;
     }
 
-    public void setDureeTour(Integer dureeTour) {
+    public void setDureeTour(int dureeTour) {
 
         if (dureeTour < Constants.MIN_DUREE_TOUR) {
             this.dureeTour = Constants.MIN_DUREE_TOUR;
@@ -74,5 +95,16 @@ public class Partie {
 
     public void setJoueurs(List<Utilisateur> joueurs) {
         this.joueurs = joueurs;
+    }
+
+    @Override
+    public String toString() {
+        return "Partie{" +
+                "idPartie=" + idPartie +
+                ", nombreJoueurs=" + nombreJoueurs +
+                ", dureeTour=" + dureeTour +
+                ", codePartie='" + codePartie + '\'' +
+                ", joueurs=" + joueurs +
+                '}';
     }
 }

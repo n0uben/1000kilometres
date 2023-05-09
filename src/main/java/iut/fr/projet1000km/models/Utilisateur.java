@@ -1,5 +1,6 @@
 package iut.fr.projet1000km.models;
 
+import iut.fr.projet1000km.Constants;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -8,29 +9,29 @@ import java.util.List;
 public class Utilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idUtilisateur;
+    private Long idUtilisateur;
     @Column
     private String pseudo;
     @Column
     private String motDePasse;
     @Column
-    private Integer nbPartiesJouees = 0;
+    private int nbPartiesJouees = 0;
     @Column
-    private Integer nbPartiesGagnees = 0;
+    private int nbPartiesGagnees = 0;
     @Column
-    private Integer kmParcourus = 0;
+    private int kmParcourus = 0;
     @Column
-    private Boolean peutAvancer = false;
+    private boolean peutAvancer = false;
 
 
     @ManyToMany
     private List<Utilisateur> amis;
 
-    public long getIdUtilisateur() {
+    public Long getIdUtilisateur() {
         return idUtilisateur;
     }
 
-    public void setIdUtilisateur(long idUtilisateur) {
+    public void setIdUtilisateur(Long idUtilisateur) {
         this.idUtilisateur = idUtilisateur;
     }
 
@@ -50,27 +51,27 @@ public class Utilisateur {
         this.motDePasse = motDePasse;
     }
 
-    public Integer getNbPartiesJouees() {
+    public int getNbPartiesJouees() {
         return nbPartiesJouees;
     }
 
-    public void setNbPartiesJouees(Integer nbPartiesJouees) {
+    public void setNbPartiesJouees(int nbPartiesJouees) {
         if (nbPartiesJouees >= 0 && nbPartiesJouees >= this.nbPartiesGagnees) {
             this.nbPartiesJouees = nbPartiesJouees;
         }
     }
 
-    public Integer getNbPartiesGagnees() {
+    public int getNbPartiesGagnees() {
         return nbPartiesGagnees;
     }
 
-    public void setNbPartiesGagnees(Integer nbPartiesGagnees) {
+    public void setNbPartiesGagnees(int nbPartiesGagnees) {
         if (nbPartiesGagnees >= 0 && nbPartiesGagnees <= nbPartiesJouees) {
             this.nbPartiesGagnees = nbPartiesGagnees;
         }
     }
 
-    public Integer getKmParcourus() {
+    public int getKmParcourus() {
         return kmParcourus;
     }
 
@@ -80,11 +81,11 @@ public class Utilisateur {
         }
     }
 
-    public Boolean getPeutAvancer() {
+    public boolean getPeutAvancer() {
         return peutAvancer;
     }
 
-    public void setPeutAvancer(Boolean peutAvancer) {
+    public void setPeutAvancer(boolean peutAvancer) {
         this.peutAvancer = peutAvancer;
     }
 
@@ -94,5 +95,18 @@ public class Utilisateur {
 
     public void setAmis(List<Utilisateur> amis) {
         this.amis = amis;
+    }
+
+    @Override
+    public String toString() {
+        return "Utilisateur{" +
+                "idUtilisateur=" + idUtilisateur +
+                ", pseudo='" + pseudo + '\'' +
+                ", motDePasse='" + motDePasse + '\'' +
+                ", nbPartiesJouees=" + nbPartiesJouees +
+                ", nbPartiesGagnees=" + nbPartiesGagnees +
+                ", kmParcourus=" + kmParcourus +
+                ", peutAvancer=" + peutAvancer +
+                '}';
     }
 }

@@ -1,38 +1,33 @@
 package iut.fr.projet1000km.services;
 
+import iut.fr.projet1000km.models.Carte;
 import iut.fr.projet1000km.models.Pioche;
-import iut.fr.projet1000km.repository.PiocheRepository;
+import iut.fr.projet1000km.repository.CarteRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PiocheService {
+    private final CarteRepository carteRepository;
 
-    private final PiocheRepository piocheRepository;
-
-    public PiocheService(PiocheRepository piocheRepository) {
-        this.piocheRepository = piocheRepository;
+    public PiocheService(CarteRepository carteRepository) {
+        this.carteRepository = carteRepository;
     }
 
-    public Optional<Pioche> getOne(Long id) {
-        return piocheRepository.findById(id);
-    }
+    public Pioche initialise(Pioche pioche){
 
-    public List<Pioche> getAll() {
-        return piocheRepository.findAll();
-    }
-
-    public Pioche creer(Pioche pioche) {
-        return piocheRepository.saveAndFlush(pioche);
-    }
-
-    public Pioche modifier(Pioche pioche) {
-        return piocheRepository.saveAndFlush(pioche);
-    }
-
-    public void supprimer(Long id) {
-        piocheRepository.deleteById(id);
+        List<Carte> cartes = carteRepository.findAll();
+        cartes.forEach(carte -> {
+            for(int i=0;i<carte.getNbDispo();i++){
+                pioche.getCartes().add(carte);
+            }
+        });
+        //mélange la pioche
+        List<Carte> toShuffle = pioche.getCartes();
+        Collections.shuffle(toShuffle);
+        pioche.setCartes(toShuffle);
+        return pioche;
     }
 }

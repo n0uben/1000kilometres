@@ -21,6 +21,17 @@ public class Carte {
     @ManyToOne
     private TypeCarte typeCarte;
 
+    public Carte() {
+    }
+
+    public Carte(long idCarte, String nom, int km, String effet, int nbDispo) {
+        this.idCarte = idCarte;
+        this.nom = nom;
+        this.km = km;
+        this.effet = effet;
+        this.nbDispo = nbDispo;
+    }
+
     public long getIdCarte() {
         return idCarte;
     }
@@ -59,5 +70,16 @@ public class Carte {
 
     public void setNbDispo(int nbDispo) {
         this.nbDispo = nbDispo;
+    }
+
+    @Override
+    public String toString() {
+        return "Carte{" +
+                "idCarte=" + idCarte +
+                ", nom='" + nom + '\'' +
+                ", km=" + km +
+                ", effet='" + effet + '\'' +
+                ", nbDispo=" + nbDispo +
+                '}';
     }
 }

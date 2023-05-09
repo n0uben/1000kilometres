@@ -1,7 +1,7 @@
 package iut.fr.projet1000km.controllers;
 
 import iut.fr.projet1000km.models.TypeCarte;
-import iut.fr.projet1000km.services.TypeCarteService;
+import iut.fr.projet1000km.repository.TypeCarteRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,49 +10,49 @@ import java.util.List;
 @RestController
 @RequestMapping("/typecarte")
 public class TypeCarteControleur {
-    private final TypeCarteService typeCarteService;
+    private final TypeCarteRepository typeCarteRepository;
 
-    public TypeCarteControleur(TypeCarteService typeCarteService) {
-        this.typeCarteService = typeCarteService;
+    public TypeCarteControleur(TypeCarteRepository typeCarteRepository) {
+        this.typeCarteRepository = typeCarteRepository;
     }
 
     @GetMapping
     public List<TypeCarte> getAll() {
-        return typeCarteService.getAll();
+        return typeCarteRepository.findAll();
     }
 
     /**
      *
      * @param id id typecarte
-     * @return Si existe, renvoie une carte, sinon 404
+     * @return Si existe, renvoie un type de carte, sinon 404
      */
     @GetMapping(value = "{id}")
     public ResponseEntity<TypeCarte> getById(@PathVariable final Long id) {
 
         // map & orElse  == then & catch en javascript (getOne == promesse => traiter en tant que tel)
-        return typeCarteService.getOne(id)
+        return typeCarteRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping("/creer")
     public TypeCarte creer(@RequestBody final TypeCarte tcarte) {
-        return typeCarteService.creer(tcarte);
+        return typeCarteRepository.saveAndFlush(tcarte);
     }
 
     /**
      *
-     * @param id id typecarteservice
+     * @param id id
      * @param tcarte objet type carte
-     * @return Si existe, modifie carte existante et la renvoie, sinon 404
+     * @return Si existe, modifie typecarte existant et le renvoie, sinon 404
      */
     @PutMapping("/modifier/{id}")
     public ResponseEntity<TypeCarte> modifier(@PathVariable final Long id, @RequestBody final TypeCarte tcarte) {
 
-        return typeCarteService.getOne(id)
+        return typeCarteRepository.findById(id)
                 .map(tc -> {
                     tc.setNomTypeCarte(tcarte.getNomTypeCarte());
-                    TypeCarte tcarteModifiee = typeCarteService.modifier(tc);
+                    TypeCarte tcarteModifiee = typeCarteRepository.saveAndFlush(tc);
                     return ResponseEntity.ok(tcarteModifiee);
                 }).orElse(ResponseEntity.notFound().build());
     }
@@ -65,9 +65,9 @@ public class TypeCarteControleur {
     @DeleteMapping("/supprimer/{id}")
     public ResponseEntity<Object> supprimer(@PathVariable final Long id) {
 
-        return typeCarteService.getOne(id)
+        return typeCarteRepository.findById(id)
                 .map(tcarteBdd -> {
-                    typeCarteService.supprimer(tcarteBdd.getIdTypeCarte());
+                    typeCarteRepository.deleteById(tcarteBdd.getIdTypeCarte());
                     return ResponseEntity.ok().build();
                 }).orElse(ResponseEntity.notFound().build());
     }
