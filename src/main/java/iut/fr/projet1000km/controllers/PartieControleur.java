@@ -61,6 +61,7 @@ public class PartieControleur {
                     p.setDureeTour(partie.getDureeTour());
                     p.setCodePartie(partie.getCodePartie());
                     p.setJoueurs(partie.getJoueurs());
+                    p.setEstLancee(partie.isEstLancee());
                     Partie partiemodifiee = partieRepository.saveAndFlush(p);
                     return ResponseEntity.ok(partiemodifiee);
                 }).orElse(ResponseEntity.notFound().build());
